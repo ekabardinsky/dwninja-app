@@ -1,0 +1,18 @@
+{
+  "name": "dwninja-app",
+  "version": "1.0.0",
+  "description": "Evaluate dw scripts in cloud",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekabardinsky/dwninja-app.git"
+  },
+  "author": "Evgeny Kabardinsky",
+  "license": "GNU",
+  "bugs": {
+    "url": "https://github.com/ekabardinsky/dwninja-app/issues"
+  },
+  "homepage": "https://github.com/ekabardinsky/dwninja-app#readme"
+}
