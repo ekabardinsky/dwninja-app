@@ -43,33 +43,30 @@ class DataWeave2 {
     }
 
     supportedVariableTypes() {
-        return {
-            success: true,
-            data: [
-                {
-                    name: 'payload',
-                    supportNestedNames: false
-                },
-                {
-                    name: 'vars',
-                    supportNestedNames: true
-                }
-            ]
-        }
+        return [
+            {
+                name: 'payload',
+                supportNestedNames: false
+            },
+            {
+                name: 'vars',
+                supportNestedNames: true
+            }
+        ];
     }
 
     supportedVariableMimeTypes() {
-        return {
-            success: true,
-            data: [
-                'application/json',
-                'application/xml',
-                'application/csv',
-                'application/java'
-            ]
-        }
+        return [
+            'application/json',
+            'application/xml',
+            'application/csv',
+            'application/java'
+        ];
     }
 
+    getDisplayName() {
+        return "DataWeave 2.0";
+    }
 }
 
 module.exports = new DataWeave2();

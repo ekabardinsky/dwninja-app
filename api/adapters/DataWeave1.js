@@ -4,7 +4,11 @@ const config = require('../configs/config');
 class DataWeave1 {
     async process(project) {
         const {configs: {expression, variables}} = project;
-        const payload = variables.find(variable => variable.type === 'payload') || 	{ type: 'payload', mimeType: 'application/json', value: ''};
+        const payload = variables.find(variable => variable.type === 'payload') || {
+            type: 'payload',
+            mimeType: 'application/json',
+            value: ''
+        };
         const flowVars = variables
             .filter(variable => variable.type !== 'payload')
             .map(variable => ({
@@ -39,31 +43,29 @@ class DataWeave1 {
     }
 
     supportedVariableTypes() {
-        return {
-            success: true,
-            data: [
-                {
-                    name: 'payload',
-                    supportNestedNames: false
-                },
-                {
-                    name: 'flowVars',
-                    supportNestedNames: true
-                }
-            ]
-        }
+        return [
+            {
+                name: 'payload',
+                supportNestedNames: false
+            },
+            {
+                name: 'flowVars',
+                supportNestedNames: true
+            }
+        ];
     }
 
     supportedVariableMimeTypes() {
-        return {
-            success: true,
-            data: [
-                'application/json',
-                'application/xml',
-                'application/csv',
-                'application/java'
-            ]
-        }
+        return [
+            'application/json',
+            'application/xml',
+            'application/csv',
+            'application/java'
+        ];
+    }
+
+    getDisplayName() {
+        return "DataWeave 1.0";
     }
 
 }

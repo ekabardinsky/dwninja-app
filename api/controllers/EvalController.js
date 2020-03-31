@@ -23,7 +23,8 @@ class EvalController {
             .map(evaluatorName =>({
                 name: evaluatorName,
                 variableTypes: evaluators[evaluatorName].supportedVariableTypes(),
-                variableMimeTypes: evaluators[evaluatorName].supportedVariableMimeTypes()
+                variableMimeTypes: evaluators[evaluatorName].supportedVariableMimeTypes(),
+                displayName: evaluators[evaluatorName].getDisplayName()
             }));
         res.send({success: true, data: evaluatorsMetadata});
     }
