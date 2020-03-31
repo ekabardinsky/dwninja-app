@@ -2,9 +2,8 @@
   "name": "dwninja-app",
   "version": "1.0.0",
   "description": "Evaluate dw scripts in cloud",
-  "main": "index.js",
-  "scripts": {
-  },
+  "main": "api/index.js",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ekabardinsky/dwninja-app.git"
@@ -14,5 +13,21 @@
   "bugs": {
     "url": "https://github.com/ekabardinsky/dwninja-app/issues"
   },
-  "homepage": "https://github.com/ekabardinsky/dwninja-app#readme"
+  "homepage": "https://github.com/ekabardinsky/dwninja-app#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-async-await": "^1.1.0",
+    "instagram-private-api": "^1.26.0",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^5.1.0",
+    "moment": "^2.24.0",
+    "node-cron": "^2.0.3",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "request-promise": "^4.2.4",
+    "@google-cloud/bigquery": "^4.7.0",
+    "js-md5": "^0.7.3"
+  }
 }
