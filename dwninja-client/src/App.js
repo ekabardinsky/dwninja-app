@@ -3,7 +3,6 @@ import {Route, Switch} from 'react-router-dom';
 import { ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import Login from "./pages/Login";
 import Main from "./pages/Main";
-import {red} from "@material-ui/core/colors";
 
 export default class App extends Component {
     render() {
