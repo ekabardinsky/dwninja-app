@@ -68,7 +68,7 @@ class PageSkeleton extends Component {
                                                                                            value={type}>{type}</MenuItem>)}
                             </Select>
                         </Grid>}
-                        {evaluators.length > 0 && <Grid item xs={2}>
+                        {evaluators.length > 0 && <Grid item xs={1}>
                             <Select
                                 size={"large"}
                                 variant="standard"
@@ -88,7 +88,7 @@ class PageSkeleton extends Component {
                                 onClick={this.handleHiyah.bind(this)}
                                 startIcon={<Code/>}>Hiyah</Button>
                         </Grid>}
-                        <Grid item xs={2}></Grid>
+                        <Grid item xs={3}></Grid>
                         {authorized && <Grid item xs={2}>
                             <Button
                                 size={"large"}
