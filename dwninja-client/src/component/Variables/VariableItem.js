@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import FileCopy from '@material-ui/icons/FileCopy';
 import {withStyles} from '@material-ui/core/styles';
 import VariableEdit from './VariableEdit'
 
@@ -42,6 +43,14 @@ class VariableItem extends Component {
         this.props.selectVariable(this.props.variable)
     }
 
+    copyName() {
+        const evaluator = this.props.project.selectedProject.configs.evaluator;
+        const variableTypes = this.props.project.evaluators.find(item => item.name === evaluator).variableTypes;
+        const selectedVariableType = variableTypes.find(type => type.name === this.props.variable.type);
+        const name = selectedVariableType.supportNestedNames ? `${this.props.variable.type}.${this.props.variable.name}` : this.props.variable.type;
+        navigator.clipboard.writeText(name);
+    }
+
     render() {
         const selectedVariable = this.props.project.selectedVariable;
         const evaluator = this.props.project.selectedProject.configs.evaluator;
@@ -53,10 +62,13 @@ class VariableItem extends Component {
             <Grid container direction="column" justify={"center"} alignContent={"center"}>
                 <Grid item xs={12}>
                     <Grid container direction="row" justify={"flex-start"} alignItems={"center"} spacing={1}>
-                        <Grid item xs={8}>
+                        <Grid item xs={6}>
                             <BootstrapButton disabled={isSelected} onClick={this.selectVariable.bind((this))}>
                                 {selectedVariableType.required ? this.props.variable.type : `${this.props.variable.type}.${this.props.variable.name}`}
                             </BootstrapButton>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <IconButton onClick={this.copyName.bind(this)}><FileCopy/></IconButton>
                         </Grid>
                         <Grid item xs={2}>
                             <IconButton onClick={this.openEdit.bind(this)} disabled={!selectedVariableType.supportNestedNames}><Edit/></IconButton>
