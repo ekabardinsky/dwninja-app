@@ -46,11 +46,13 @@ class DataWeave1 {
         return [
             {
                 name: 'payload',
-                supportNestedNames: false
+                supportNestedNames: false,
+                required: true
             },
             {
                 name: 'flowVars',
-                supportNestedNames: true
+                supportNestedNames: true,
+                required: false
             }
         ];
     }
@@ -68,6 +70,29 @@ class DataWeave1 {
         return "DataWeave 1.0";
     }
 
+    getExample() {
+        return {
+            "name": "test",
+            "configs": {
+                "evaluator": "dw-1",
+                "expression": "%dw 1.0 \n%output application/json \n--- \nflowVars.greeting",
+                "variables": [
+                    {
+                        "type": "payload",
+                        "name": "payload",
+                        "mimeType": "application/java",
+                        "value": "Welcome to DataWeave Ninja dear "
+                    },
+                    {
+                        "type": "flowVars",
+                        "name": "greeting",
+                        "mimeType": "application/json",
+                        "value": "{\"root\": \"value\"}"
+                    }
+                ]
+            }
+        }
+    }
 }
 
 module.exports = new DataWeave1();

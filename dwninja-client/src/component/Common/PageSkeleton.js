@@ -1,14 +1,23 @@
 import React, {Component} from 'react';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Code from '@material-ui/icons/Code';
-import {selectEvaluator, selectInputMimeType} from "../../redux/actions";
+import {
+    selectEvaluator,
+    selectInputMimeType,
+    updateSelectedProject,
+    updateLastOutput,
+    evaluationStarted,
+    evaluationEnd
+} from "../../redux/actions";
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import VariableBar from "../Variables/VariableBar";
 
 class PageSkeleton extends Component {
 
@@ -32,21 +41,26 @@ class PageSkeleton extends Component {
         this.props.selectInputMimeType(first.target.value);
     }
 
+    handleHiyah() {
+        this.props.evaluationStarted({evaluationEnd: this.props.evaluationEnd, updateLastOutput: this.props.updateLastOutput});
+    }
+
     render() {
         const access_token = window.localStorage.getItem('access_token');
         let isLoginPage = window.location.href.includes("/login");
         let authorized = !!access_token;
-        const {evaluators, selectedEvaluator, selectedInputMimeType} = this.props.project;
+        const {evaluators, selectedEvaluator, selectedVariable, isEvaluate} = this.props.project;
 
         return (
             <div>
+                { isEvaluate && <LinearProgress color={"secondary"}/>}
                 <AppBar position="static">
                     <Toolbar>
                         <Grid container spacing={2} justify={"flex-end"} alignItems={"center"}>
                             {evaluators.length > 0 && <Grid item xs={4}>
                                 <Select
                                     variant="standard"
-                                    value={selectedInputMimeType}
+                                    value={selectedVariable.mimeType}
                                     onChange={this.handleInputMimeTypeChange.bind(this)}>
                                     {selectedEvaluator.variableMimeTypes.map(type => <MenuItem key={type}
                                                                                                value={type}>{type}</MenuItem>)}
@@ -67,6 +81,7 @@ class PageSkeleton extends Component {
                                 <Button
                                     variant="text"
                                     color="default"
+                                    onClick={this.handleHiyah.bind(this)}
                                     startIcon={<Code/>}>Hiyah</Button>
                             </Grid>}
                             <Grid item xs={2}></Grid>
@@ -101,7 +116,14 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {selectEvaluator, selectInputMimeType};
+const mapDispatchToProps = {
+    selectEvaluator,
+    selectInputMimeType,
+    updateSelectedProject,
+    updateLastOutput,
+    evaluationStarted,
+    evaluationEnd
+};
 
 export default connect(
     mapStateToProps,

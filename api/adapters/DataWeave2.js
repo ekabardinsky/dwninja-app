@@ -46,11 +46,13 @@ class DataWeave2 {
         return [
             {
                 name: 'payload',
-                supportNestedNames: false
+                supportNestedNames: false,
+                required: true
             },
             {
                 name: 'vars',
-                supportNestedNames: true
+                supportNestedNames: true,
+                required: false
             }
         ];
     }
@@ -66,6 +68,30 @@ class DataWeave2 {
 
     getDisplayName() {
         return "DataWeave 2.0";
+    }
+
+    getExample() {
+        return {
+            "name": "test",
+            "configs": {
+                "evaluator": "dw-2",
+                "expression": "%dw 2.0\nimport * from dw::core::Strings\noutput application/xml\n--- \npayload",
+                "variables": [
+                    {
+                        "type": "payload",
+                        "name": "payload",
+                        "mimeType": "application/json",
+                        "value": "{ \"title\": \"DataWeave\" }"
+                    },
+                    {
+                        "type": "vars",
+                        "name": "name",
+                        "mimeType": "application/java",
+                        "value": "ninja 2"
+                    }
+                ]
+            }
+        }
     }
 }
 

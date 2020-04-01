@@ -24,7 +24,8 @@ class EvalController {
                 name: evaluatorName,
                 variableTypes: evaluators[evaluatorName].supportedVariableTypes(),
                 variableMimeTypes: evaluators[evaluatorName].supportedVariableMimeTypes(),
-                displayName: evaluators[evaluatorName].getDisplayName()
+                displayName: evaluators[evaluatorName].getDisplayName(),
+                example: evaluators[evaluatorName].getExample()
             }));
         res.send({success: true, data: evaluatorsMetadata});
     }
