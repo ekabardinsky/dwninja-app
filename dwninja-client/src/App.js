@@ -6,6 +6,7 @@ import Main from "./pages/Main";
 
 export default class App extends Component {
     render() {
+        // https://material.io/inline-tools/color/
         const theme = createMuiTheme({
             palette: {
                 primary: {
