@@ -10,10 +10,10 @@ export default class App extends Component {
         const theme = createMuiTheme({
             palette: {
                 primary: {
-                    main: '#686962'
+                    main: '#bec6bf'
                 },
                 background: {
-                    paper: '#a7a5a0'
+                    paper: '#a0a7a1'
                 }
             }
         });
