@@ -6,9 +6,7 @@ import VariableItem from './VariableItem'
 import IconButton from "@material-ui/core/IconButton";
 import Add from '@material-ui/icons/Add';
 
-import {
-    createVariable
-} from "../../redux/actions";
+import {createVariable} from "../../redux/actions";
 import Paper from "@material-ui/core/Paper";
 
 class VariableBar extends Component {

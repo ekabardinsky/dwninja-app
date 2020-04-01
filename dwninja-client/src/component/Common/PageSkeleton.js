@@ -4,12 +4,12 @@ import AppBar from '@material-ui/core/AppBar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Code from '@material-ui/icons/Code';
 import {
+    evaluationEnd,
+    evaluationStarted,
     selectEvaluator,
     selectInputMimeType,
-    updateSelectedProject,
     updateLastOutput,
-    evaluationStarted,
-    evaluationEnd
+    updateSelectedProject
 } from "../../redux/actions";
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
