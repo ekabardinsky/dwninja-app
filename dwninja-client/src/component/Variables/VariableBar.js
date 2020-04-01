@@ -31,8 +31,11 @@ class VariableBar extends Component {
                 </Grid>
                 {this.props.project.selectedProject.configs.variables
                     .sort((a, b) => {
-                        if(a.name < b.name) { return -1; }
-                        if(a.name > b.name) { return 1; }
+                        const aName = a.type + a.name;
+                        const bName = b.type + b.name;
+
+                        if(aName < bName) { return -1; }
+                        if(aName > bName) { return 1; }
                         return 0;
                     })
                     .map(variable => {
