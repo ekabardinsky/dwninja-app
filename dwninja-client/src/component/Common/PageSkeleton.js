@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Code from '@material-ui/icons/Code';
 import {
