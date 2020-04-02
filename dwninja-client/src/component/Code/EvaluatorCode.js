@@ -13,6 +13,7 @@ import "ace-builds/src-min-noconflict/ext-searchbox";
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-min-noconflict/ext-keybinding_menu";
 import {addCompleter} from 'ace-builds/src-noconflict/ext-language_tools';
+import {getVariableFullName} from "../../utils/Utils";
 
 const languages = [
     "javascript",
@@ -29,20 +30,24 @@ languages.forEach(lang => {
 class InputCode extends Component {
 
     render() {
-        const bottomElementsCount = this.props.project.selectedProject.configs.variables.length + 1;
+        const project = this.props.project;
+        const bottomElementsCount = project.selectedProject.configs.variables.length + 1;
         const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
         const offset = 10;
         const topBarOffset = 58;
         const bottomBarSize = 56;
         const finalOffset = topBarOffset + offset + bottomBarSize * bottomLines;
 
-        const variables = this.props.project.selectedProject.configs.variables.map(variable => ({
-            name: `${variable.type}.${variable.name}`,
-            value: `${variable.type}.${variable.name}`,
-            caption: `${variable.type}.${variable.name}`,
-            meta: 'variable',
-            score: 1000,
-        }));
+        const variables = project.selectedProject.configs.variables.map(variable => {
+            const name = getVariableFullName(variable, project);
+            return {
+                name,
+                value: name,
+                caption: name,
+                meta: 'variable',
+                score: 1000,
+            }
+        });
 
         // variable autocomplition
         addCompleter({

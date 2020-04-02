@@ -8,6 +8,7 @@ import Add from '@material-ui/icons/Add';
 
 import {createVariable} from "../../redux/actions";
 import Paper from "@material-ui/core/Paper";
+import {getVariableFullName} from "../../utils/Utils";
 
 class VariableBar extends Component {
 
@@ -16,6 +17,7 @@ class VariableBar extends Component {
     }
 
     render() {
+        const project = this.props.project;
         return <AppBar position="sticky">
             <Grid container justify={"flex-start"} alignItems={"center"} spacing={1}>
                 <Grid item xs={1}>
@@ -27,10 +29,10 @@ class VariableBar extends Component {
                         </Grid>
                     </Paper>
                 </Grid>
-                {this.props.project.selectedProject.configs.variables
+                {project.selectedProject.configs.variables
                     .sort((a, b) => {
-                        const aName = a.type + a.name;
-                        const bName = b.type + b.name;
+                        const aName = getVariableFullName(a, project);
+                        const bName = getVariableFullName(b, project);
 
                         if(aName < bName) { return -1; }
                         if(aName > bName) { return 1; }

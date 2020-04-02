@@ -11,6 +11,7 @@ import {withStyles} from '@material-ui/core/styles';
 import VariableEdit from './VariableEdit'
 
 import {createVariable, removeVariable, selectVariable, updateVariable} from "../../redux/actions";
+import {getVariableFullName} from "../../utils/Utils";
 
 const BootstrapButton = withStyles({
     root: {
@@ -64,7 +65,7 @@ class VariableItem extends Component {
                     <Grid container direction="row" justify={"flex-start"} alignItems={"center"} spacing={1}>
                         <Grid item xs={6}>
                             <BootstrapButton disabled={isSelected} onClick={this.selectVariable.bind((this))}>
-                                {selectedVariableType.required ? this.props.variable.type : `${this.props.variable.type}.${this.props.variable.name}`}
+                                {getVariableFullName(this.props.variable, this.props.project)}
                             </BootstrapButton>
                         </Grid>
                         <Grid item xs={2}>
