@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {changeExpression} from "../../redux/actions";
+import {
+    changeExpression,
+    evaluationEnd,
+    evaluationStarted,
+    updateLastOutput
+} from "../../redux/actions";
 import {connect} from "react-redux";
 import AceEditor from "react-ace";
 
@@ -7,7 +12,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-min-noconflict/ext-searchbox";
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-min-noconflict/ext-keybinding_menu";
-import { addCompleter } from 'ace-builds/src-noconflict/ext-language_tools';
+import {addCompleter} from 'ace-builds/src-noconflict/ext-language_tools';
 
 const languages = [
     "javascript",
@@ -35,14 +40,26 @@ class InputCode extends Component {
             name: `${variable.type}.${variable.name}`,
             value: `${variable.type}.${variable.name}`,
             caption: `${variable.type}.${variable.name}`,
-            meta:'variable',
+            meta: 'variable',
             score: 1000,
         }));
 
+        // variable autocomplition
         addCompleter({
-            getCompletions: function(editor, session, pos, prefix, callback) {
+            getCompletions: function (editor, session, pos, prefix, callback) {
                 callback(null, variables);
             },
+        });
+
+        // ctrl + enter execution
+        document.addEventListener('keydown', (event) => {
+            const isTrigger = event.ctrlKey && event.code === "Enter" && !this.props.project.isEvaluate;
+            if (isTrigger) {
+                this.props.evaluationStarted({
+                    evaluationEnd: this.props.evaluationEnd,
+                    updateLastOutput: this.props.updateLastOutput
+                });
+            }
         });
 
         return <AceEditor
@@ -73,7 +90,12 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {changeExpression};
+const mapDispatchToProps = {
+    changeExpression,
+    evaluationEnd,
+    evaluationStarted,
+    updateLastOutput
+};
 
 export default connect(
     mapStateToProps,
