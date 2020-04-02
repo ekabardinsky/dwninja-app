@@ -58,7 +58,7 @@ var identifierRe = "[a-zA-Z\\$_\u00a1-\uffff][a-zA-Z\\d\\$_\u00a1-\uffff]*";
 
 var DwHighlightRules = function(options) {
     var keywordMapper = this.createKeywordMapper({
-        "variable.language": "payload|vars|inboundProperties|outboundProperties|random|now", //todo dw vars
+        "variable.language": "payload|vars|attributes|random|now", //todo dw vars
         "keyword": "as|when|otherwise|unless|default|from|import|output|function",
         "keyword.operator": "and|or|not",//todo dw operators
         "storage.type": "dw|var|class|type|core|Core|crypto|Crypto|util|system|System|Arrays|Binaries|Objects|Strings|URL|Diff",

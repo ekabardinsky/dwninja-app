@@ -3,19 +3,30 @@ const config = require('../configs/config');
 
 class DataWeave2 {
     async process(project) {
-        const {configs: {expression, variables}} = project;
+        let {configs: {expression, variables}} = project;
         const payload = variables.find(variable => variable.type === 'payload') || {
             type: 'payload',
             mimeType: 'application/json',
             value: ''
         };
         const vars = variables
-            .filter(variable => variable.type !== 'payload')
+            .filter(variable => variable.type === 'vars')
             .map(variable => ({
                 mimetype: variable.mimeType,
-                name: `${variable.type}.${variable.name}`,
+                name: `vars.${variable.name}`,
                 value: variable.value
             }));
+
+        const attributes = variables
+            .filter(variable => variable.type === 'attributes')
+            .map(variable => ({
+                mimetype: variable.mimeType,
+                name: `vars.attributes_${variable.name}`,
+                value: variable.value
+            }));
+        expression = expression.replace(/attributes\./g, 'vars.attributes_');
+        expression = expression.replace(/attributes\[\'(.*)\'\]/g, 'vars[\'attributes_$1\']');
+        expression = expression.replace(/attributes\[(.*)\]/g, 'vars[(\'attributes_\' ++ $1)]');
 
         const evalOptions = {
             payload: {
@@ -24,7 +35,7 @@ class DataWeave2 {
                 value: payload.value
             },
             expression,
-            vars
+            vars: vars.concat(attributes)
         };
 
         const result = await request({
@@ -47,12 +58,20 @@ class DataWeave2 {
             {
                 name: 'payload',
                 supportNestedNames: false,
-                required: true
+                required: true,
+                isFunction: false
             },
             {
                 name: 'vars',
                 supportNestedNames: true,
-                required: false
+                required: false,
+                isFunction: false
+            },
+            {
+                name: 'attributes',
+                supportNestedNames: true,
+                required: false,
+                isFunction: false
             }
         ];
     }

@@ -3,19 +3,51 @@ const config = require('../configs/config');
 
 class DataWeave1 {
     async process(project) {
-        const {configs: {expression, variables}} = project;
+        let {configs: {expression, variables}} = project;
         const payload = variables.find(variable => variable.type === 'payload') || {
             type: 'payload',
             mimeType: 'application/json',
             value: ''
         };
         const flowVars = variables
-            .filter(variable => variable.type !== 'payload')
+            .filter(variable => variable.type === 'flowVars')
             .map(variable => ({
                 type: variable.mimeType,
-                name: `${variable.type}.${variable.name}`,
+                name: `flowVars.${variable.name}`,
                 value: variable.value
             }));
+
+        const sessionVars = variables
+            .filter(variable => variable.type === 'sessionVars')
+            .map(variable => ({
+                type: variable.mimeType,
+                name: `flowVars.sessionVars_${variable.name}`,
+                value: variable.value
+            }));
+        expression = expression.replace(/sessionVars\./g, 'flowVars.sessionVars_');
+        expression = expression.replace(/sessionVars\[\'(.*)\'\]/g, 'flowVars[\'sessionVars_$1\']');
+        expression = expression.replace(/sessionVars\[(.*)\]/g, 'flowVars[(\'sessionVars_\' ++ $1)]');
+
+        const inboundProperties = variables
+            .filter(variable => variable.type === 'inboundProperties')
+            .map(variable => ({
+                type: variable.mimeType,
+                name: `flowVars.inboundProperties_${variable.name}`,
+                value: variable.value
+            }));
+        expression = expression.replace(/inboundProperties\./g, 'flowVars.inboundProperties_');
+        expression = expression.replace(/inboundProperties\[\'(.*)\'\]/g, 'flowVars[\'inboundProperties_$1\']');
+        expression = expression.replace(/inboundProperties\[(.*)\]/g, 'flowVars[(\'inboundProperties_\' ++ $1)]');
+
+        const p = variables
+            .filter(variable => variable.type === 'p')
+            .map(variable => ({
+                type: variable.mimeType,
+                name: `flowVars.p_${variable.name}`,
+                value: variable.value
+            }));
+        expression = expression.replace(/p\(\'(.*)\'\)/g, 'flowVars[\'p_$1\']');
+        expression = expression.replace(/p\((.*)\)/g, 'flowVars[(\'p_\' ++ $1)]');
 
         const evalOptions = {
             payload: {
@@ -24,7 +56,7 @@ class DataWeave1 {
                 value: payload.value
             },
             expression,
-            flowVars
+            flowVars: flowVars.concat(sessionVars).concat(inboundProperties).concat(p)
         };
 
         const result = await request({
@@ -47,12 +79,32 @@ class DataWeave1 {
             {
                 name: 'payload',
                 supportNestedNames: false,
-                required: true
+                required: true,
+                isFunction: false
             },
             {
                 name: 'flowVars',
                 supportNestedNames: true,
-                required: false
+                required: false,
+                isFunction: false
+            },
+            {
+                name: 'sessionVars',
+                supportNestedNames: true,
+                required: false,
+                isFunction: false
+            },
+            {
+                name: 'inboundProperties',
+                supportNestedNames: true,
+                required: false,
+                isFunction: false
+            },
+            {
+                name: 'p',
+                supportNestedNames: true,
+                required: false,
+                isFunction: true
             }
         ];
     }
