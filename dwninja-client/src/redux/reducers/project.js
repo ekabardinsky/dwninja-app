@@ -122,7 +122,7 @@ const initialState = {
         }
     ],
     selectedCollection: "Temp collection",
-    selectedTheme: "monokai"
+    selectedTheme: "eclipse"
 };
 
 function updateVariable(state, action) {
