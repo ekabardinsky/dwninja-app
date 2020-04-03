@@ -48,7 +48,7 @@ class PageSkeleton extends Component {
                 {isEvaluate && <LinearProgress color={"secondary"}/>}
                 <AppBar position="static">
                     <Grid container spacing={2} justify={"flex-end"} alignItems={"center"}>
-                        {evaluators.length > 0 && <Grid item xs={4}>
+                        {!isLoginPage && evaluators.length > 0 && <Grid item xs={4}>
                             <Select
                                 size={"large"}
                                 variant="standard"
@@ -58,7 +58,7 @@ class PageSkeleton extends Component {
                                                                                            value={type}>{type}</MenuItem>)}
                             </Select>
                         </Grid>}
-                        {evaluators.length > 0 && <Grid item xs={1}>
+                        {!isLoginPage && evaluators.length > 0 && <Grid item xs={1}>
                             <Select
                                 size={"large"}
                                 variant="standard"

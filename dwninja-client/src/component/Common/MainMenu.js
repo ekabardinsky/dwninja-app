@@ -104,8 +104,9 @@ class MainMenu extends Component {
                 <MenuItem onClick={this.closeOrOpenThemes.bind(this)}>
                     Themes
                 </MenuItem>
-                <MenuItem disabled={!authorized} onClick={this.closeOrOpenCollectionsEditor.bind(this)}>My
-                    collections</MenuItem>
+                {!isLoginPage && <MenuItem
+                    disabled={!authorized}
+                    onClick={this.closeOrOpenCollectionsEditor.bind(this)}>My collections</MenuItem>}
                 {authorized && <MenuItem onClick={this.logout.bind(this)}>Log out</MenuItem>}
                 {!authorized && !isLoginPage && <MenuItem onClick={this.logout.bind(this)}>Log in</MenuItem>}
             </Menu>
