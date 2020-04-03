@@ -3,20 +3,16 @@ import {Route, Switch} from 'react-router-dom';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import Login from "./pages/Login";
 import Main from "./pages/Main";
+import {connect} from "react-redux";
+import {getTheme} from "./utils/Utils";
 
-export default class App extends Component {
+class App extends Component {
     render() {
-        // https://material.io/inline-tools/color/
-        const theme = createMuiTheme({
-            palette: {
-                primary: {
-                    main: '#bec6bf'
-                },
-                background: {
-                    paper: '#a0a7a1'
-                }
-            }
-        });
+        const customTheme = getTheme(this.props.project.selectedTheme);
+
+        document.getElementById("body").style.background = customTheme.palette.primary.main
+
+        const theme = createMuiTheme(customTheme);
 
         return (
             <ThemeProvider theme={theme}>
@@ -28,3 +24,16 @@ export default class App extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        project: state.project
+    }
+};
+
+const mapDispatchToProps = {};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

@@ -1,5 +1,5 @@
 import {
-    CHANGE_EXPRESSION,
+    CHANGE_EXPRESSION, CHANGE_THEME,
     CHANGE_VALUE_CURRENT_VARIABLE, CREATE_COLLECTION, CREATE_LAB,
     CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
     EVALUATION_END,
@@ -121,7 +121,8 @@ const initialState = {
             }]
         }
     ],
-    selectedCollection: "Temp collection"
+    selectedCollection: "Temp collection",
+    selectedTheme: "monokai"
 };
 
 function updateVariable(state, action) {
@@ -408,6 +409,13 @@ export default function (state = initialState, action) {
                     ...state.selectedProject,
                     name: action.payload.newName
                 } : state.selectedProject
+            }
+        }
+
+        case CHANGE_THEME: {
+            return {
+                ...state,
+                selectedTheme: action.payload
             }
         }
 

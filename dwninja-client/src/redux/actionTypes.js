@@ -24,3 +24,5 @@ export const CREATE_LAB = "CREATE_LAB";
 
 export const RENAME_COLLECTION = "RENAME_COLLECTION";
 export const RENAME_LAB = "RENAME_LAB";
+
+export const CHANGE_THEME = "CHANGE_THEME";

@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import AceEditor from "react-ace";
 
 class OutputCode extends Component {
-
     render() {
+        require(`ace-builds/src-noconflict/theme-${this.props.project.selectedTheme}`);
+
         let mode = this.props.project.lastOutput.mimeType.match(/\/(.*)/)[1];
         const bottomElementsCount = this.props.project.selectedProject.configs.variables.length + 1;
         const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
@@ -15,7 +16,7 @@ class OutputCode extends Component {
 
         return <AceEditor
             mode={mode}
-            theme="monokai"
+            theme={this.props.project.selectedTheme}
             name="OUTPUT_CODE"
             value={this.props.project.lastOutput.result}
             width={"100%"}

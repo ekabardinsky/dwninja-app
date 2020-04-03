@@ -6,6 +6,8 @@ import AceEditor from "react-ace";
 class InputCode extends Component {
 
     render() {
+        require(`ace-builds/src-noconflict/theme-${this.props.project.selectedTheme}`);
+
         let mode = this.props.project.selectedVariable.mimeType.match(/\/(.*)/)[1];
         const bottomElementsCount = this.props.project.selectedProject.configs.variables.length + 1;
         const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
@@ -16,7 +18,7 @@ class InputCode extends Component {
 
         return <AceEditor
             mode={mode}
-            theme="monokai"
+            theme={this.props.project.selectedTheme}
             name="INPUT_CODE"
             value={this.props.project.selectedVariable.value}
             width={"100%"}

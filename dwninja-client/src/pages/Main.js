@@ -5,7 +5,6 @@ import PageSkeleton from "../component/Common/PageSkeleton";
 import InputCode from "../component/Code/InputCode";
 import EvaluatorCode from "../component/Code/EvaluatorCode";
 import OutputCode from "../component/Code/OutputCode";
-import CollectionsEditor from "../component/Common/CollectionsEditor";
 import VariableBar from "../component/Variables/VariableBar";
 import {getEvaluators} from "../redux/actions";
 

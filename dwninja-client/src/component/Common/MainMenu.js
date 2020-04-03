@@ -2,13 +2,54 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CollectionsEditor from "./CollectionsEditor";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import {saveCollection} from "../../redux/actions";
+import {saveCollection, changeTheme} from "../../redux/actions";
+import Drawer from '@material-ui/core/Drawer';
 
+const themes = [
+    "clouds",
+    "chrome",
+    "crimson_editor",
+    "dawn",
+    "dreamweaver",
+    "eclipse",
+    "github",
+    "iplastic",
+    "solarized_light",
+    "textmate",
+    "tomorrow",
+    "xcode",
+    "kuroir",
+    "katzenmilch",
+    "sqlserver",
+    "ambiance",
+    "chaos",
+    "clouds_midnight",
+    "dracula",
+    "cobalt",
+    "gruvbox",
+    "gob",
+    "idle_fingers",
+    "kr_theme",
+    "merbivore",
+    "merbivore_soft",
+    "mono_industrial",
+    "monokai",
+    "pastel_on_dark",
+    "solarized_dark",
+    "terminal",
+    "tomorrow_night",
+    "tomorrow_night_blue",
+    "tomorrow_night_bright",
+    "tomorrow_night_eighties",
+    "twilight",
+    "vibrant_ink"
+];
 
 class MainMenu extends Component {
     constructor(props) {
@@ -16,7 +57,9 @@ class MainMenu extends Component {
         this.state = {
             open: false,
             anchorEl: null,
-            openCollectionEditor: false
+            themesAnchorEl: null,
+            openCollectionEditor: false,
+            openThemes: false,
         };
     }
 
@@ -37,6 +80,15 @@ class MainMenu extends Component {
         this.setState({open: false, openCollectionEditor: !this.state.openCollectionEditor});
     }
 
+    closeOrOpenThemes(event) {
+        this.setState({openThemes: !this.state.openThemes});
+    }
+
+    chooseTheme(event) {
+        this.setState({open: false, openThemes: false});
+        this.props.changeTheme(event.currentTarget.value)
+    }
+
     render() {
         const access_token = window.localStorage.getItem('access_token');
         let isLoginPage = window.location.href.includes("/login");
@@ -49,7 +101,11 @@ class MainMenu extends Component {
                 anchorEl={this.state.anchorEl}
                 open={this.state.open}
                 onClose={this.closeOrOpen.bind(this)}>
-                <MenuItem disabled={!authorized} onClick={this.closeOrOpenCollectionsEditor.bind(this)}>My collections</MenuItem>
+                <MenuItem onClick={this.closeOrOpenThemes.bind(this)}>
+                    Themes
+                </MenuItem>
+                <MenuItem disabled={!authorized} onClick={this.closeOrOpenCollectionsEditor.bind(this)}>My
+                    collections</MenuItem>
                 {authorized && <MenuItem onClick={this.logout.bind(this)}>Log out</MenuItem>}
                 {!authorized && !isLoginPage && <MenuItem onClick={this.logout.bind(this)}>Log in</MenuItem>}
             </Menu>
@@ -57,6 +113,12 @@ class MainMenu extends Component {
                 <DialogTitle>Collections Editor</DialogTitle>
                 <CollectionsEditor/>
             </Dialog>
+            <Drawer anchor={"right"} open={this.state.openThemes} onClose={this.closeOrOpenThemes.bind(this)}>
+                {
+                    themes.map(theme => <Button onClick={this.chooseTheme.bind(this)} value={theme}
+                                                key={theme}>{theme}</Button>)
+                }
+            </Drawer>
         </React.Fragment>
     }
 }
@@ -68,7 +130,7 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {saveCollection};
+const mapDispatchToProps = {saveCollection, changeTheme};
 
 export default connect(
     mapStateToProps,

@@ -8,7 +8,6 @@ import {
 import {connect} from "react-redux";
 import AceEditor from "react-ace";
 
-import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-min-noconflict/ext-searchbox";
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-min-noconflict/ext-keybinding_menu";
@@ -30,6 +29,8 @@ languages.forEach(lang => {
 class InputCode extends Component {
 
     render() {
+        require(`ace-builds/src-noconflict/theme-${this.props.project.selectedTheme}`);
+
         const project = this.props.project;
         const bottomElementsCount = project.selectedProject.configs.variables.length + 1;
         const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
@@ -69,7 +70,7 @@ class InputCode extends Component {
 
         return <AceEditor
             mode={this.props.project.selectedProject.configs.evaluator}
-            theme="monokai"
+            theme={this.props.project.selectedTheme}
             name="EVALUATOR_CODE"
             width={"100%"}
             wrapEnabled={true}

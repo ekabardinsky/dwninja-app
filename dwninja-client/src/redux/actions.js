@@ -1,5 +1,5 @@
 import {
-    CHANGE_EXPRESSION,
+    CHANGE_EXPRESSION, CHANGE_THEME,
     CHANGE_VALUE_CURRENT_VARIABLE, CREATE_COLLECTION, CREATE_LAB,
     CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
     EVALUATION_END,
@@ -116,5 +116,10 @@ export const renameCollection = payload => ({
 
 export const renameLab = payload => ({
     type: RENAME_LAB,
+    payload
+});
+
+export const changeTheme = payload => ({
+    type: CHANGE_THEME,
     payload
 });
