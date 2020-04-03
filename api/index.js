@@ -13,7 +13,7 @@ require("express-async-await")(public); // async support
 app.use(bodyParser.json()); // parse application/json
 
 require("./controllers/AuthController")(public);
-new require("./controllers/ProjectController")(apiRoute);
+new require("./controllers/StateController")(apiRoute);
 new require("./controllers/EvalController")(public);
 
 // start to listening for calls

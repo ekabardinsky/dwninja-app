@@ -74,55 +74,49 @@ class DatabaseBigQueryStrategy {
         return await this.loadData([{id: this.getNextUuid(), email, password: md5(password)}], 'users');
     }
 
-    async getProjects(userId) {
-        return await this.runQueryJob(`SELECT * FROM ${this.getTableName('projects')} WHERE userId='${userId}'`);
+    async deleteStateByIds(ids) {
+        return await this.runQueryJob(`DELETE FROM ${this.getTableName('states')} WHERE id in (${ids.map(id => `'${id}'`).join(',')})`);
     }
 
-    async deleteProjectByIds(ids) {
-        return await this.runQueryJob(`DELETE FROM ${this.getTableName('projects')} WHERE id in (${ids.map(id => `'${id}'`).join(',')})`);
-    }
+    async upsertState(email, newState) {
+        const users = await this.runQueryJob(`
+            SELECT users.*, states.id as stateId FROM ${this.getTableName('users')} as users
+            LEFT OUTER JOIN ${this.getTableName('states')} as states on states.userId = users.id
+            where users.email = '${email}'
+        `);
 
-    async upsertProject(email, name, configs) {
-        const user = await this.getUser(email);
-        const projects = await this.getProjects(user.id);
-        const filtered = projects.filter(project => project.name === name);
+        if (!users.length) return {success: false};
 
+        const user = users[0];
         const data = [{
             id: this.getNextUuid(),
             userId: user.id,
-            name,
-            configs
+            state: JSON.stringify(newState)
         }];
 
-        await this.loadData(data, 'projects');
+        await this.loadData(data, 'states');
 
-        if (filtered.length > 0) {
-            await this.deleteProjectByIds(
-                filtered.map(project => project.id)
-            );
+        const ids = users.map(user => user.stateId).filter(stateId => stateId != null);
+        if (ids.length) {
+            await this.deleteStateByIds(ids);
         }
 
         return {success: true}
     }
 
-    async deleteProject(email, name) {
-        const user = await this.getUser(email);
-        const projects = await this.getProjects(user.id);
-        const filtered = projects.filter(project => project.name === name);
+    async getStateByEmail(email) {
+        const data = await this.runQueryJob(`
+            SELECT states.* FROM ${this.getTableName('states')} as states
+            JOIN ${this.getTableName('users')} as users on states.userId = users.id
+            where users.email = '${email}'
+        `);
 
-        if (filtered.length > 0) {
-            await this.deleteProjectByIds(
-                filtered.map(project => project.id)
-            );
-        }
-
-        return {success: true};
-    }
-
-    async getAllProjects(email) {
-        const user = await this.getUser(email);
-        const data = await this.getProjects(user.id);
-        return {success: true, data};
+        return {
+            success: true,
+            data: {
+                state: data.length ? JSON.parse(data[0].state) : data
+            }
+        };
     }
 }
 
