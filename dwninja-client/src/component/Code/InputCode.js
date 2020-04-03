@@ -2,19 +2,14 @@ import React, {Component} from 'react';
 import {changeValueCurrentVariable} from "../../redux/actions";
 import {connect} from "react-redux";
 import AceEditor from "react-ace";
+import {calculateHeight} from "../../utils/Utils";
 
 class InputCode extends Component {
 
     render() {
-        require(`ace-builds/src-noconflict/theme-${this.props.project.selectedTheme}`);
-
         let mode = this.props.project.selectedVariable.mimeType.match(/\/(.*)/)[1];
-        const bottomElementsCount = this.props.project.selectedProject.configs.variables.length + 1;
-        const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
-        const offset = 10;
-        const topBarOffset = 58;
-        const bottomBarSize = 56;
-        const finalOffset = topBarOffset + offset + bottomBarSize * bottomLines;
+        const finalOffset = calculateHeight(this.props.project);
+
 
         return <AceEditor
             mode={mode}

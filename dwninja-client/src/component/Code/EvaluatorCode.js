@@ -12,7 +12,7 @@ import "ace-builds/src-min-noconflict/ext-searchbox";
 import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-min-noconflict/ext-keybinding_menu";
 import {addCompleter} from 'ace-builds/src-noconflict/ext-language_tools';
-import {getVariableFullName} from "../../utils/Utils";
+import {calculateHeight, getVariableFullName} from "../../utils/Utils";
 
 const languages = [
     "javascript",
@@ -29,15 +29,8 @@ languages.forEach(lang => {
 class InputCode extends Component {
 
     render() {
-        require(`ace-builds/src-noconflict/theme-${this.props.project.selectedTheme}`);
-
         const project = this.props.project;
-        const bottomElementsCount = project.selectedProject.configs.variables.length + 1;
-        const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
-        const offset = 10;
-        const topBarOffset = 58;
-        const bottomBarSize = 56;
-        const finalOffset = topBarOffset + offset + bottomBarSize * bottomLines;
+        const finalOffset = calculateHeight(project);
 
         const variables = project.selectedProject.configs.variables.map(variable => {
             const name = getVariableFullName(variable, project);

@@ -50,3 +50,11 @@ export const getTheme = (name) => {
         }
     }
 };
+
+export const calculateHeight = (project) => {
+    const bottomElementsCount = project.selectedProject.configs.variables.length + 1;
+    const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
+    const topBarOffset = 58;
+    const bottomBarSize = 56;
+   return topBarOffset + bottomBarSize * bottomLines;
+};
