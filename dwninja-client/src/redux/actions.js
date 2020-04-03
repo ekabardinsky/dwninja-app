@@ -4,7 +4,7 @@ import {
     CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
     EVALUATION_END,
     EVALUATION_STARTED,
-    GET_EVALUATORS,
+    GET_EVALUATORS, LOAD_STATE,
     REMOVE_VARIABLE, RENAME_COLLECTION, RENAME_LAB, SAVE_COLLECTION,
     SELECT_EVALUATOR,
     SELECT_INPUT_MIME_TYPE, SELECT_LAB,
@@ -121,5 +121,10 @@ export const renameLab = payload => ({
 
 export const changeTheme = payload => ({
     type: CHANGE_THEME,
+    payload
+});
+
+export const loadState = payload => ({
+    type: LOAD_STATE,
     payload
 });

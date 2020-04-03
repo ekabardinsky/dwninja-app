@@ -113,9 +113,7 @@ class DatabaseBigQueryStrategy {
 
         return {
             success: true,
-            data: {
-                state: data.length ? JSON.parse(data[0].state) : data
-            }
+            data: data.length ? JSON.parse(data[0].state) : null
         };
     }
 }

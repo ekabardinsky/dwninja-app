@@ -8,8 +8,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CollectionsEditor from "./CollectionsEditor";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import {saveCollection, changeTheme} from "../../redux/actions";
+import {changeTheme, saveCollection} from "../../redux/actions";
 import Drawer from '@material-ui/core/Drawer';
+import {post} from "../../utils/Api";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const themes = [
     "clouds",
@@ -60,6 +62,7 @@ class MainMenu extends Component {
             themesAnchorEl: null,
             openCollectionEditor: false,
             openThemes: false,
+            savingState: false
         };
     }
 
@@ -89,18 +92,33 @@ class MainMenu extends Component {
         this.props.changeTheme(event.currentTarget.value)
     }
 
+    saveChanges() {
+        this.setState({savingState: true, open: false});
+        const state = {
+            ...this.props.project,
+            evaluators: null
+        };
+        post('/api/state', state, (response) => {
+            this.setState({savingState: false})
+        })
+    }
+
     render() {
         const access_token = window.localStorage.getItem('access_token');
         let isLoginPage = window.location.href.includes("/login");
         let authorized = !!access_token;
 
         return <React.Fragment>
+            {this.state.savingState && <LinearProgress color={"secondary"}/>}
             <IconButton onClick={this.closeOrOpen.bind(this)}><MenuIcon/></IconButton>
             <Menu
                 keepMounted
                 anchorEl={this.state.anchorEl}
                 open={this.state.open}
                 onClose={this.closeOrOpen.bind(this)}>
+                <MenuItem onClick={this.saveChanges.bind(this)}>
+                    Save changes
+                </MenuItem>
                 <MenuItem onClick={this.closeOrOpenThemes.bind(this)}>
                     Themes
                 </MenuItem>

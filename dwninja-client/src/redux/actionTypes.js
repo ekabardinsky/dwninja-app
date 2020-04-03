@@ -26,3 +26,5 @@ export const RENAME_COLLECTION = "RENAME_COLLECTION";
 export const RENAME_LAB = "RENAME_LAB";
 
 export const CHANGE_THEME = "CHANGE_THEME";
+
+export const LOAD_STATE = "LOAD_STATE";

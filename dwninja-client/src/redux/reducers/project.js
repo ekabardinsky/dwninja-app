@@ -1,13 +1,23 @@
 import {
-    CHANGE_EXPRESSION, CHANGE_THEME,
-    CHANGE_VALUE_CURRENT_VARIABLE, CREATE_COLLECTION, CREATE_LAB,
-    CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
+    CHANGE_EXPRESSION,
+    CHANGE_THEME,
+    CHANGE_VALUE_CURRENT_VARIABLE,
+    CREATE_COLLECTION,
+    CREATE_LAB,
+    CREATE_VARIABLE,
+    DELETE_COLLECTION,
+    DELETE_LAB,
     EVALUATION_END,
     EVALUATION_STARTED,
     GET_EVALUATORS,
-    REMOVE_VARIABLE, RENAME_COLLECTION, RENAME_LAB, SAVE_COLLECTION,
+    LOAD_STATE,
+    REMOVE_VARIABLE,
+    RENAME_COLLECTION,
+    RENAME_LAB,
+    SAVE_COLLECTION,
     SELECT_EVALUATOR,
-    SELECT_INPUT_MIME_TYPE, SELECT_LAB,
+    SELECT_INPUT_MIME_TYPE,
+    SELECT_LAB,
     SELECT_VARIABLE,
     UPDATE_LAST_OUTPUT,
     UPDATE_SELECTED_PROJECT,
@@ -122,7 +132,8 @@ const initialState = {
         }
     ],
     selectedCollection: "Temp collection",
-    selectedTheme: "eclipse"
+    selectedTheme: "eclipse",
+    stateLoaded: false
 };
 
 function updateVariable(state, action) {
@@ -416,6 +427,21 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 selectedTheme: action.payload
+            }
+        }
+
+        case LOAD_STATE: {
+            if (action.payload.data) {
+                return {
+                    ...action.payload.data,
+                    evaluators: state.evaluators,
+                    stateLoaded: true
+                }
+            } else {
+                return {
+                    ...state,
+                    stateLoaded: true
+                };
             }
         }
 
