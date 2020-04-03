@@ -1,13 +1,13 @@
 import {
     CHANGE_EXPRESSION,
-    CHANGE_VALUE_CURRENT_VARIABLE,
-    CREATE_VARIABLE,
+    CHANGE_VALUE_CURRENT_VARIABLE, CREATE_COLLECTION, CREATE_LAB,
+    CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
     EVALUATION_END,
     EVALUATION_STARTED,
     GET_EVALUATORS,
-    REMOVE_VARIABLE,
+    REMOVE_VARIABLE, RENAME_COLLECTION, RENAME_LAB, SAVE_COLLECTION,
     SELECT_EVALUATOR,
-    SELECT_INPUT_MIME_TYPE,
+    SELECT_INPUT_MIME_TYPE, SELECT_LAB,
     SELECT_VARIABLE,
     UPDATE_LAST_OUTPUT,
     UPDATE_SELECTED_PROJECT,
@@ -76,5 +76,45 @@ export const createVariable = payload => ({
 
 export const selectVariable = payload => ({
     type: SELECT_VARIABLE,
+    payload
+});
+
+export const deleteCollection = payload => ({
+    type: DELETE_COLLECTION,
+    payload
+});
+
+export const deleteLab = payload => ({
+    type: DELETE_LAB,
+    payload
+});
+
+export const saveCollection = payload => ({
+    type: SAVE_COLLECTION,
+    payload
+});
+
+export const selectLab = payload => ({
+    type: SELECT_LAB,
+    payload
+});
+
+export const createCollection = payload => ({
+    type: CREATE_COLLECTION,
+    payload
+});
+
+export const createLab = payload => ({
+    type: CREATE_LAB,
+    payload
+});
+
+export const renameCollection = payload => ({
+    type: RENAME_COLLECTION,
+    payload
+});
+
+export const renameLab = payload => ({
+    type: RENAME_LAB,
     payload
 });

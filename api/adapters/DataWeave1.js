@@ -124,7 +124,7 @@ class DataWeave1 {
 
     getExample() {
         return {
-            "name": "test",
+            "name": "Temp lab",
             "configs": {
                 "evaluator": "dw-1",
                 "expression": "%dw 1.0 \n%output application/json \n--- \nflowVars.greeting",

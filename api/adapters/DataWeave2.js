@@ -91,7 +91,7 @@ class DataWeave2 {
 
     getExample() {
         return {
-            "name": "test",
+            "name": "Temp lab",
             "configs": {
                 "evaluator": "dw-2",
                 "expression": "%dw 2.0\nimport * from dw::core::Strings\noutput application/xml\n--- \npayload",

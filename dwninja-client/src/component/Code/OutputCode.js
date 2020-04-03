@@ -9,7 +9,7 @@ class OutputCode extends Component {
         const bottomElementsCount = this.props.project.selectedProject.configs.variables.length + 1;
         const bottomLines = Math.min(Math.ceil(bottomElementsCount / 4), 3);
         const offset = 10;
-        const topBarOffset = 42;
+        const topBarOffset = 58;
         const bottomBarSize = 56;
         const finalOffset = topBarOffset + offset + bottomBarSize * bottomLines;
 

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import AppBar from '@material-ui/core/AppBar';
-import MenuIcon from '@material-ui/icons/Menu';
 import Code from '@material-ui/icons/Code';
 import {
     evaluationEnd,
@@ -16,15 +15,9 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import MainMenu from "./MainMenu";
 
 class PageSkeleton extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            anchorEl: null,
-        };
-    }
 
     logout() {
         window.localStorage.removeItem('access_token');
@@ -47,9 +40,7 @@ class PageSkeleton extends Component {
     }
 
     render() {
-        const access_token = window.localStorage.getItem('access_token');
         let isLoginPage = window.location.href.includes("/login");
-        let authorized = !!access_token;
         const {evaluators, selectedEvaluator, selectedVariable, isEvaluate} = this.props.project;
 
         return (
@@ -87,23 +78,10 @@ class PageSkeleton extends Component {
                                 onClick={this.handleHiyah.bind(this)}
                                 startIcon={<Code/>}>Hiyah</Button>
                         </Grid>}
-                        <Grid item xs={3}></Grid>
-                        {authorized && <Grid item xs={2}>
-                            <Button
-                                size={"large"}
-                                variant="text"
-                                color="default"
-                                onClick={this.logout}
-                                startIcon={<MenuIcon/>}>Log out</Button>
-                        </Grid>}
-                        {!authorized && !isLoginPage && <Grid item xs={2}>
-                            <Button
-                                size={"large"}
-                                variant="contained"
-                                color="default"
-                                onClick={this.logout}
-                                startIcon={<MenuIcon/>}>Log in</Button>
-                        </Grid>}
+                        <Grid item xs={4}></Grid>
+                        <Grid item xs={1}>
+                            <MainMenu/>
+                        </Grid>
                     </Grid>
                 </AppBar>
                 <div className={"container"}>

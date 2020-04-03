@@ -16,6 +16,7 @@
     "request-promise": "^4.2.4",
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
+    "@material-ui/lab": "^4.0.0-alpha.47",
     "react-ace": "^8.1.0"
   },
   "scripts": {
