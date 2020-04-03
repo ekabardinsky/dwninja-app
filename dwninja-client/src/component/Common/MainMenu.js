@@ -116,15 +116,15 @@ class MainMenu extends Component {
                 anchorEl={this.state.anchorEl}
                 open={this.state.open}
                 onClose={this.closeOrOpen.bind(this)}>
-                <MenuItem onClick={this.saveChanges.bind(this)}>
+                {!isLoginPage && <MenuItem disabled={!authorized} onClick={this.saveChanges.bind(this)}>
                     Save changes
-                </MenuItem>
-                <MenuItem onClick={this.closeOrOpenThemes.bind(this)}>
-                    Themes
-                </MenuItem>
+                </MenuItem>}
                 {!isLoginPage && <MenuItem
                     disabled={!authorized}
                     onClick={this.closeOrOpenCollectionsEditor.bind(this)}>My collections</MenuItem>}
+                <MenuItem onClick={this.closeOrOpenThemes.bind(this)}>
+                    Themes
+                </MenuItem>
                 {authorized && <MenuItem onClick={this.logout.bind(this)}>Log out</MenuItem>}
                 {!authorized && !isLoginPage && <MenuItem onClick={this.logout.bind(this)}>Log in</MenuItem>}
             </Menu>
