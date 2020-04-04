@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    build: ./dwninja-client
+    ports:
+      - 8080:80
+    links:
+      - backend
+  backend:
+    build: ./api
+    environment:
+      PORT: 8080
+      TMP_DIR: /usr/src/app/tmp
+      SECRET: ${SECRET}
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/creds/dwninja-creds.json
+    volumes:
+      - ${GOOGLE_APPLICATION_CREDENTIALS_PATH}:/usr/src/app/creds
