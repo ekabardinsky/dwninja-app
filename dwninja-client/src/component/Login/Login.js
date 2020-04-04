@@ -3,14 +3,25 @@ import {connect} from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import {post} from "../../utils/Api";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            open: false,
+            message: '',
+            waiting: false
         }
     }
 
@@ -23,6 +34,7 @@ class Login extends Component {
     }
 
     handlingLogin() {
+        this.setState({waiting: true});
         post('/public/api/login', {
             email: this.state.username,
             password: this.state.password
@@ -31,7 +43,25 @@ class Login extends Component {
                 window.localStorage.setItem('access_token', result.token);
                 window.location.href = '/';
             } else {
-                console.log(result)
+                this.setState({open: true, message: 'Can not log in. Maybe yu pass wrong username/password?', waiting: false});
+            }
+        })
+    }
+
+    handleCloseSnackbar() {
+        this.setState({open: false})
+    }
+
+    handlingRegister() {
+        this.setState({waiting: true});
+        post('/public/api/register', {
+            email: this.state.username,
+            password: this.state.password
+        }, (result) => {
+            if (!result.success) {
+                this.setState({open: true, message: 'Can not create a user. Maybe it already taken?', waiting: false});
+            } else {
+                this.handlingLogin();
             }
         })
     }
@@ -59,9 +89,20 @@ class Login extends Component {
                     value={password}
                 />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={8}>
+                <Snackbar open={this.state.open}
+                          onClose={this.handleCloseSnackbar.bind(this)}><Alert severity="error">{this.state.message}</Alert></Snackbar>
+            </Grid>
+            <Grid item xs={2}>
                 <Button size="small" onClick={this.handlingLogin.bind(this)}>Login</Button>
             </Grid>
+            <Grid item xs={2}>
+                <Button size="small" onClick={this.handlingRegister.bind(this)}>Register</Button>
+            </Grid>
+            <Backdrop open={this.state.waiting} style={{zIndex: 1000}}>
+                <CircularProgress color="inherit">
+                </CircularProgress>
+            </Backdrop>
         </Grid>
     }
 }
