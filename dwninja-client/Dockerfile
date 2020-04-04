@@ -1,4 +1,4 @@
-FROM node:carbon AS application
+FROM node:13 AS application
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -14,7 +14,7 @@ RUN npm install
 COPY ./ ./
 
 # Build app
-RUN npm run build --max_old_space_size=2048
+RUN npm run build --max-old-space-size=2048
 
 FROM nginx
 

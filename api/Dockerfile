@@ -11,6 +11,8 @@ COPY package*.json ./
 RUN npm install
 
 COPY ./ ./
-RUN ls
+
+ENV TMP_DIR=/usr/src/app/tmp
+RUN mkdir -p $TMP_DIR
 
 ENTRYPOINT node index.js

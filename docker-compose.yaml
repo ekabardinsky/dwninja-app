@@ -10,7 +10,6 @@ services:
     build: ./api
     environment:
       PORT: 8080
-      TMP_DIR: /usr/src/app/tmp
       SECRET: ${SECRET}
       GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/creds/dwninja-creds.json
     volumes:
