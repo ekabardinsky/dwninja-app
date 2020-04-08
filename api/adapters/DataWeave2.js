@@ -12,16 +12,16 @@ class DataWeave2 {
         const vars = variables
             .filter(variable => variable.type === 'vars')
             .map(variable => ({
-                mimetype: variable.mimeType,
-                name: `vars.${variable.name}`,
+                mimeType: variable.mimeType,
+                name: `${variable.name}`,
                 value: variable.value
             }));
 
         const attributes = variables
             .filter(variable => variable.type === 'attributes')
             .map(variable => ({
-                mimetype: variable.mimeType,
-                name: `vars.attributes_${variable.name}`,
+                mimeType: variable.mimeType,
+                name: `attributes_${variable.name}`,
                 value: variable.value
             }));
         expression = expression.replace(/attributes\./g, 'vars.attributes_');
@@ -30,11 +30,10 @@ class DataWeave2 {
 
         const evalOptions = {
             payload: {
-                name: 'payload',
-                mimetype: payload.mimeType,
+                mimeType: payload.mimeType,
                 value: payload.value
             },
-            expression,
+            dw: expression,
             vars: vars.concat(attributes)
         };
 
