@@ -11,10 +11,13 @@ require("./passport/passport");
 require("express-async-await")(apiRoute); // async support
 require("express-async-await")(public); // async support
 app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.raw({ type: 'text/plain' })); // parse text/plain
+app.use(bodyParser.raw({ type: 'application/xml' })); // parse application/xml
 
 require("./controllers/AuthController")(public);
 new require("./controllers/StateController")(apiRoute);
 new require("./controllers/EvalController")(public);
+new require("./controllers/FormatterController")(public);
 
 // start to listening for calls
 app.use('/public/api/', public);

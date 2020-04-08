@@ -27,6 +27,8 @@
     "passport-local": "^1.0.0",
     "request-promise": "^4.2.4",
     "@google-cloud/bigquery": "^4.7.0",
-    "js-md5": "^0.7.3"
+    "js-md5": "^0.7.3",
+    "fast-xml-parser": "^3.16.0",
+    "xml-formatter": "^1.2.0"
   }
 }

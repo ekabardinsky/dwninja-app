@@ -11,6 +11,14 @@ module.exports = {
         uri: 'http://dwninja.ekabardinsky.net/api/executors/dw'
     },
     dw2: {
-        uri: 'http://dwninja2.ekabardinsky.net/api/executors/dw'
+        uri: 'http://84.201.168.27:8081/api/transform'
+    },
+    formatters: {
+        json: {
+            uri: 'https://jsonformatter.curiousconcept.com/process'
+        },
+        xml: {
+            uri: 'https://www.liquid-technologies.com/api/Formatter'
+        }
     }
 };
