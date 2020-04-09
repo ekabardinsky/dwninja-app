@@ -5,7 +5,7 @@ module.exports = {
     bigQuery: {
         project: 'dwninja',
         dataset: 'user_data',
-        tmpDir: process.env.TMP_DIR
+        tmpDir: process.env.TMP_DIR | './tmp'
     },
     dw1: {
         uri: 'http://dwninja.ekabardinsky.net/api/executors/dw'
@@ -19,6 +19,11 @@ module.exports = {
         },
         xml: {
             uri: 'https://www.liquid-technologies.com/api/Formatter'
+        }
+    },
+    generators: {
+        dw: {
+            uri: 'http://84.201.168.27:9000/api/generate'
         }
     }
 };

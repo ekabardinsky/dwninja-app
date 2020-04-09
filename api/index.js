@@ -18,6 +18,7 @@ require("./controllers/AuthController")(public);
 new require("./controllers/StateController")(apiRoute);
 new require("./controllers/EvalController")(public);
 new require("./controllers/FormatterController")(public);
+new require("./controllers/GenerateController")(public);
 
 // start to listening for calls
 app.use('/public/api/', public);
