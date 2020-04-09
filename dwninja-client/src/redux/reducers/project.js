@@ -1,7 +1,7 @@
 import {
     CHANGE_EXPRESSION,
     CHANGE_THEME,
-    CHANGE_VALUE_CURRENT_VARIABLE,
+    CHANGE_VALUE_CURRENT_VARIABLE, CLOSE_ALERT, CLOSE_RUNNING_SPLASH,
     CREATE_COLLECTION,
     CREATE_LAB,
     CREATE_VARIABLE,
@@ -10,7 +10,7 @@ import {
     EVALUATION_END,
     EVALUATION_STARTED,
     GET_EVALUATORS,
-    LOAD_STATE,
+    LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH,
     REMOVE_VARIABLE,
     RENAME_COLLECTION,
     RENAME_LAB,
@@ -133,7 +133,9 @@ const initialState = {
     ],
     selectedCollection: "Temp collection",
     selectedTheme: "eclipse",
-    stateLoaded: false
+    stateLoaded: false,
+    alert: {open: false},
+    running: false
 };
 
 function updateVariable(state, action) {
@@ -442,6 +444,34 @@ export default function (state = initialState, action) {
                     ...state,
                     stateLoaded: true
                 };
+            }
+        }
+
+        case OPEN_ALERT: {
+            return {
+                ...state,
+                alert: {open: true, ...action.payload}
+            }
+        }
+
+        case CLOSE_ALERT: {
+            return {
+                ...state,
+                alert: {open: false}
+            }
+        }
+
+        case OPEN_RUNNING_SPLASH: {
+            return {
+                ...state,
+                running: true
+            }
+        }
+
+        case CLOSE_RUNNING_SPLASH: {
+            return {
+                ...state,
+                running: false
             }
         }
 

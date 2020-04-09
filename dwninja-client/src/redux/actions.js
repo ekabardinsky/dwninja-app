@@ -1,10 +1,10 @@
 import {
     CHANGE_EXPRESSION, CHANGE_THEME,
-    CHANGE_VALUE_CURRENT_VARIABLE, CREATE_COLLECTION, CREATE_LAB,
+    CHANGE_VALUE_CURRENT_VARIABLE, CLOSE_ALERT, CLOSE_RUNNING_SPLASH, CREATE_COLLECTION, CREATE_LAB,
     CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
     EVALUATION_END,
     EVALUATION_STARTED,
-    GET_EVALUATORS, LOAD_STATE,
+    GET_EVALUATORS, LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH,
     REMOVE_VARIABLE, RENAME_COLLECTION, RENAME_LAB, SAVE_COLLECTION,
     SELECT_EVALUATOR,
     SELECT_INPUT_MIME_TYPE, SELECT_LAB,
@@ -126,5 +126,25 @@ export const changeTheme = payload => ({
 
 export const loadState = payload => ({
     type: LOAD_STATE,
+    payload
+});
+
+export const openAlert = payload => ({
+    type: OPEN_ALERT,
+    payload
+});
+
+export const closeAlert = payload => ({
+    type: CLOSE_ALERT,
+    payload
+});
+
+export const openRunningSplash = payload => ({
+    type: OPEN_RUNNING_SPLASH,
+    payload
+});
+
+export const closeRunningSplash = payload => ({
+    type: CLOSE_RUNNING_SPLASH,
     payload
 });

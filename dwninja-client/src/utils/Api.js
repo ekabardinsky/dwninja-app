@@ -1,15 +1,17 @@
 import request from 'request-promise';
 
-function apiCall(uri, method, body, action, failureAction) {
+function apiCall(uri, method, body, action, failureAction, json = true) {
     const access_token = window.localStorage.getItem('access_token');
+    const contentType = json ? "application/json" : "text/plain";
     return request({
         method,
         uri: window.location.origin + uri,
         body,
         headers: {
-          "Authorization": `Bearer ${access_token}`
+            'Authorization': `Bearer ${access_token}`,
+            'Content-Type': contentType
         },
-        json: true
+        json
     }).then(response => {
         if (action) {
             action(response);
@@ -27,7 +29,7 @@ function apiCall(uri, method, body, action, failureAction) {
     })
 }
 
-export const get = (uri, action, failureAction) => apiCall(uri, 'GET', undefined, action, failureAction);
-export const post = (uri, body, action, failureAction) => apiCall(uri, 'POST', body, action, failureAction);
-export const put = (uri, body, action, failureAction) => apiCall(uri, 'PUT', body, action, failureAction);
-export const del = (uri, action, failureAction) => apiCall(uri, 'DELETE', undefined, action, failureAction);
+export const get = (uri, action, failureAction, isJson) => apiCall(uri, 'GET', undefined, action, failureAction, isJson);
+export const post = (uri, body, action, failureAction, isJson) => apiCall(uri, 'POST', body, action, failureAction, isJson);
+export const put = (uri, body, action, failureAction, isJson) => apiCall(uri, 'PUT', body, action, failureAction, isJson);
+export const del = (uri, action, failureAction, isJson) => apiCall(uri, 'DELETE', undefined, action, failureAction, isJson);

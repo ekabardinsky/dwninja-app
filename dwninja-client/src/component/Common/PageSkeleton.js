@@ -16,6 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import MainMenu from "./MainMenu";
+import CodeHelpers from "../Code/CodeHelpers"
 
 class PageSkeleton extends Component {
 
@@ -48,6 +49,9 @@ class PageSkeleton extends Component {
                 {isEvaluate && <LinearProgress color={"secondary"}/>}
                 <AppBar position="static">
                     <Grid container spacing={2} justify={"flex-end"} alignItems={"center"}>
+                        {!isLoginPage && <Grid item xs={1}>
+                            <CodeHelpers/>
+                        </Grid>}
                         {!isLoginPage && evaluators.length > 0 && <Grid item xs={4}>
                             <Select
                                 size={"large"}

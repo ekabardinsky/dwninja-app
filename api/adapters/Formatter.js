@@ -22,11 +22,9 @@ class Formatter {
         const response = JSON.parse(result);
 
         return {
-            success: !(response.result === 'failure'),
+            success: !response.result.errors.length,
             body: response.result.jsoncopy,
             errors: response.result.errors
-                ? response.result.errors
-                : null
         }
     }
 

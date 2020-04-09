@@ -28,3 +28,8 @@ export const RENAME_LAB = "RENAME_LAB";
 export const CHANGE_THEME = "CHANGE_THEME";
 
 export const LOAD_STATE = "LOAD_STATE";
+
+export const OPEN_ALERT = "OPEN_ALERT";
+export const CLOSE_ALERT = "CLOSE_ALERT";
+export const OPEN_RUNNING_SPLASH = "OPEN_RUNNING_SPLASH";
+export const CLOSE_RUNNING_SPLASH = "CLOSE_RUNNING_SPLASH";

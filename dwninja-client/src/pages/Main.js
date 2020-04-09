@@ -8,9 +8,15 @@ import InputCode from "../component/Code/InputCode";
 import EvaluatorCode from "../component/Code/EvaluatorCode";
 import OutputCode from "../component/Code/OutputCode";
 import VariableBar from "../component/Variables/VariableBar";
-import {getEvaluators, loadState} from "../redux/actions";
+import {getEvaluators, loadState, closeAlert} from "../redux/actions";
 
 import {get} from "../utils/Api"
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class MainPage extends Component {
     constructor(props) {
@@ -25,7 +31,7 @@ class MainPage extends Component {
         const access_token = window.localStorage.getItem('access_token');
         const authorized = !!access_token;
         const stateLoaded = this.props.project.stateLoaded;
-        const loading = authorized && !stateLoaded;
+        const loading = authorized && !stateLoaded || this.props.project.running;
         const page = (
             <PageSkeleton>
                 <Grid container direction="row" alignItems={"center"} alignContent={"center"} justify={"center"}>
@@ -43,6 +49,10 @@ class MainPage extends Component {
                 <CircularProgress color="inherit">
                 </CircularProgress>
             </Backdrop>
+            <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'left'}} open={this.props.project.alert.open}
+                      onClose={this.props.closeAlert}>
+                <Alert severity={this.props.project.alert.severity}>{this.props.project.alert.alertMessage}</Alert>
+            </Snackbar>
         </React.Fragment>
     }
 }
@@ -53,7 +63,7 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {getEvaluators, loadState};
+const mapDispatchToProps = {getEvaluators, loadState, closeAlert};
 
 export default connect(
     mapStateToProps,
