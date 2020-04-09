@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const config = require('../configs/config');
-const format = require('xml-formatter');
 const parser = require('fast-xml-parser');
+const beautifier = require('xml-beautifier')
 
 class Formatter {
     async json(body) {
@@ -30,9 +30,10 @@ class Formatter {
 
     async xml(body) {
         const valid = parser.validate(body)
+        const indentation = '    ';
         return {
             success: valid === true,
-            body: valid === true ? format(body) : null,
+            body: valid === true ? beautifier(body, indentation) : null,
             errors: valid !== true ? [
                 {
                     code: valid.err.code,
