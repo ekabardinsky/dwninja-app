@@ -16,6 +16,7 @@ class OutputCode extends Component {
             width={"100%"}
             wrapEnabled={true}
             readOnly={true}
+            debounceChangePeriod={1000}
             height={`calc(100vh - ${finalOffset}px)`}
             editorProps={{$blockScrolling: Infinity}}
         />

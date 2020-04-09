@@ -67,6 +67,7 @@ class InputCode extends Component {
             name="EVALUATOR_CODE"
             width={"100%"}
             wrapEnabled={true}
+            debounceChangePeriod={1000}
             height={`calc(100vh - ${finalOffset}px)`}
             enableBasicAutocompletion={true}
             enableLiveAutocompletion={true}

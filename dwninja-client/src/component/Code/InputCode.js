@@ -18,6 +18,7 @@ class InputCode extends Component {
             value={this.props.project.selectedVariable.value}
             width={"100%"}
             wrapEnabled={true}
+            debounceChangePeriod={1000}
             height={`calc(100vh - ${finalOffset}px)`}
             onChange={this.props.changeValueCurrentVariable}
             editorProps={{$blockScrolling: Infinity}}
