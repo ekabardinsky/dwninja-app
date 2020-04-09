@@ -273,7 +273,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 selectedProject,
-                selectedVariable: state.selectedProject.configs.variables[0]
+                selectedVariable: selectedProject.configs.variables[0]
             }
         }
         case CREATE_VARIABLE: {
