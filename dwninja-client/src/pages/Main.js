@@ -31,7 +31,15 @@ class MainPage extends Component {
         const access_token = window.localStorage.getItem('access_token');
         const authorized = !!access_token;
         const stateLoaded = this.props.project.stateLoaded;
-        const loading = authorized && !stateLoaded || this.props.project.running;
+        let loading = false;
+        if (authorized && !stateLoaded) {
+            loading = true;
+        } else if (this.props.project.running) {
+            loading = true;
+        }
+        const alertOpen = this.props.project.alert ? this.props.project.alert.open : false;
+        const alertMessage = this.props.project.alert ? this.props.project.alert.alertMessage : '';
+        const severity = this.props.project.alert ? this.props.project.alert.severity : 'error';
         const page = (
             <PageSkeleton>
                 <Grid container direction="row" alignItems={"center"} alignContent={"center"} justify={"center"}>
@@ -49,10 +57,13 @@ class MainPage extends Component {
                 <CircularProgress color="inherit">
                 </CircularProgress>
             </Backdrop>
-            <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'left'}} open={this.props.project.alert.open}
-                      onClose={this.props.closeAlert}>
-                <Alert severity={this.props.project.alert.severity}>{this.props.project.alert.alertMessage}</Alert>
-            </Snackbar>
+            {
+                this.props.project.alert &&
+                <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'left'}} open={alertOpen}
+                          onClose={this.props.closeAlert}>
+                    <Alert severity={severity}>{alertMessage}</Alert>
+                </Snackbar>
+            }
         </React.Fragment>
     }
 }
