@@ -19,6 +19,7 @@ require("./controllers/AuthController")(public);
 new require("./controllers/EvalController")(public);
 new require("./controllers/FormatterController")(public);
 new require("./controllers/GenerateController")(public);
+new require("./controllers/ParserController")(public);
 
 // Secured APIs
 new require("./controllers/StateController")(apiRoute);
@@ -26,9 +27,6 @@ new require("./controllers/StateController")(apiRoute);
 // start to listening for calls
 app.use('/public/api/', public);
 app.use('/api', passport.authenticate('jwt', {session: false}), apiRoute);
-
-// start jobs
-require("./jobs");
 
 app.use((err, req, res, next) => {
     if (err) {

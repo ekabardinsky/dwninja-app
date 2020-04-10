@@ -32,6 +32,7 @@
     "xml-beautifier": "^0.4.3",
     "jsesc": "^3.0.1",
     "unscape-json-recursively": "^1.0.2",
-    "entities": "^2.0.0"
+    "entities": "^2.0.0",
+    "dot-properties": "^1.0.0"
   }
 }

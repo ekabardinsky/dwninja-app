@@ -10,7 +10,7 @@ import {
     EVALUATION_END,
     EVALUATION_STARTED,
     GET_EVALUATORS,
-    LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH,
+    LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH, PARSE_PROPERTY_FILE_RESULT,
     REMOVE_VARIABLE,
     RENAME_COLLECTION,
     RENAME_LAB,
@@ -472,6 +472,21 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 running: false
+            }
+        }
+
+        case PARSE_PROPERTY_FILE_RESULT: {
+            const parsedVariables = action.payload;
+            const newVariables = parsedVariables.filter(parsedVariable => {
+                return !state.selectedProject.configs.variables
+                    .find(variable => variable.name === parsedVariable.name && variable.type === parsedVariable.type);
+            });
+
+            const allVariables = newVariables.concat(state.selectedProject.configs.variables);
+
+            return {
+                ...state,
+                selectedProject: {...state.selectedProject, configs: {...state.selectedProject.configs, variables: allVariables}}
             }
         }
 

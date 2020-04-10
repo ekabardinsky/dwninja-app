@@ -4,7 +4,7 @@ import {
     CREATE_VARIABLE, DELETE_COLLECTION, DELETE_LAB,
     EVALUATION_END,
     EVALUATION_STARTED,
-    GET_EVALUATORS, LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH,
+    GET_EVALUATORS, LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH, PARSE_PROPERTY_FILE_RESULT,
     REMOVE_VARIABLE, RENAME_COLLECTION, RENAME_LAB, SAVE_COLLECTION,
     SELECT_EVALUATOR,
     SELECT_INPUT_MIME_TYPE, SELECT_LAB,
@@ -146,5 +146,10 @@ export const openRunningSplash = payload => ({
 
 export const closeRunningSplash = payload => ({
     type: CLOSE_RUNNING_SPLASH,
+    payload
+});
+
+export const parsePropertyFileResult = payload => ({
+    type: PARSE_PROPERTY_FILE_RESULT,
     payload
 });
