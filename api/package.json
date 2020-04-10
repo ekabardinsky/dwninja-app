@@ -29,6 +29,9 @@
     "@google-cloud/bigquery": "^4.7.0",
     "js-md5": "^0.7.3",
     "fast-xml-parser": "^3.16.0",
-    "xml-beautifier": "^0.4.3"
+    "xml-beautifier": "^0.4.3",
+    "jsesc": "^3.0.1",
+    "unscape-json-recursively": "^1.0.2",
+    "entities": "^2.0.0"
   }
 }

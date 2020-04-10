@@ -21,9 +21,13 @@ function Alert(props) {
 class MainPage extends Component {
     constructor(props) {
         super(props);
+        const access_token = window.localStorage.getItem('access_token');
+
         get("/public/api/evaluators", (response) => {
             this.props.getEvaluators(response);
-            get('/api/state', this.props.loadState)
+            if (access_token) {
+                get('/api/state', this.props.loadState)
+            }
         });
     }
 

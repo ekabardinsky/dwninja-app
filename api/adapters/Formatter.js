@@ -2,6 +2,9 @@ const request = require('request-promise');
 const config = require('../configs/config');
 const parser = require('fast-xml-parser');
 const beautifier = require('xml-beautifier')
+const jsonUnescape = require('unscape-json-recursively');
+const jsonEscape = require('jsesc');
+const xmlEntities = require('entities');
 
 class Formatter {
     async json(body) {
@@ -42,6 +45,24 @@ class Formatter {
                 }
             ] : null
         }
+    }
+
+    async unescapeJson(body) {
+        return {success: true, body: jsonUnescape(body)};
+    }
+
+    async unescapeXml(body) {
+        return {success: true, body: xmlEntities.decodeXML(body)}
+    }
+
+    async escapeJson(body) {
+        return {
+            success: true, body: jsonEscape(body, {wrap: true, quotes: 'double'})
+        }
+    }
+
+    async escapeXml(body) {
+        return {success: true, body: xmlEntities.encodeXML(body)}
     }
 }
 

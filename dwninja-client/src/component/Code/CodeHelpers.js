@@ -51,8 +51,50 @@ class CodeHelpers extends Component {
 
     }
 
-    handleCloseAlert() {
-        this.setState({alertOpen: false})
+    unescape() {
+        this.setState({open: false});
+        const data = this.props.project.selectedVariable.value;
+        let mode = this.props.project.selectedVariable.mimeType.match(/\/(.*)/)[1];
+        if(mode === "java") {
+            mode = "json"
+        }
+
+        if (mode === 'json' || mode === 'xml') {
+            this.props.openRunningSplash();
+
+            post('/public/api/unescape/' + mode, data, (response) => {
+                this.props.closeRunningSplash();
+                const result = JSON.parse(response)
+                if (result.success) {
+                    this.props.changeValueCurrentVariable(result.body);
+                } else {
+                    this.props.openAlert({alertMessage: 'Can not unescape data', severity: 'error'})
+                }
+            }, this.props.closeRunningSplash, false)
+        }
+    }
+
+    escape() {
+        this.setState({open: false});
+        const data = this.props.project.selectedVariable.value;
+        let mode = this.props.project.selectedVariable.mimeType.match(/\/(.*)/)[1];
+        if(mode === "java") {
+            mode = "json"
+        }
+
+        if (mode === 'json' || mode === 'xml') {
+            this.props.openRunningSplash();
+
+            post('/public/api/escape/' + mode, data, (response) => {
+                this.props.closeRunningSplash();
+                const result = JSON.parse(response)
+                if (result.success) {
+                    this.props.changeValueCurrentVariable(result.body);
+                } else {
+                    this.props.openAlert({alertMessage: 'Can not unescape data', severity: 'error'})
+                }
+            }, this.props.closeRunningSplash, false)
+        }
     }
 
     closeOrOpen(event) {
@@ -69,6 +111,12 @@ class CodeHelpers extends Component {
                 onClose={this.closeOrOpen.bind(this)}>
                 <MenuItem onClick={this.format.bind(this)}>
                     Format Code
+                </MenuItem>
+                <MenuItem onClick={this.unescape.bind(this)}>
+                    Unescape
+                </MenuItem>
+                <MenuItem onClick={this.escape.bind(this)}>
+                    Escape
                 </MenuItem>
             </Menu>
         </React.Fragment>

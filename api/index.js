@@ -14,11 +14,14 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.raw({ type: 'text/plain' })); // parse text/plain
 app.use(bodyParser.raw({ type: 'application/xml' })); // parse application/xml
 
+// public APIs
 require("./controllers/AuthController")(public);
-new require("./controllers/StateController")(apiRoute);
 new require("./controllers/EvalController")(public);
 new require("./controllers/FormatterController")(public);
 new require("./controllers/GenerateController")(public);
+
+// Secured APIs
+new require("./controllers/StateController")(apiRoute);
 
 // start to listening for calls
 app.use('/public/api/', public);
