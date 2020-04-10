@@ -45,10 +45,7 @@ class VariableItem extends Component {
     }
 
     copyName() {
-        const evaluator = this.props.project.selectedProject.configs.evaluator;
-        const variableTypes = this.props.project.evaluators.find(item => item.name === evaluator).variableTypes;
-        const selectedVariableType = variableTypes.find(type => type.name === this.props.variable.type);
-        const name = selectedVariableType.supportNestedNames ? `${this.props.variable.type}.${this.props.variable.name}` : this.props.variable.type;
+        const name = getVariableFullName(this.props.variable, this.props.project)
         navigator.clipboard.writeText(name);
     }
 
