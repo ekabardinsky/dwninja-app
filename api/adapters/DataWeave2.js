@@ -25,8 +25,18 @@ class DataWeave2 {
                 value: variable.value
             }));
         expression = expression.replace(/attributes\./g, 'vars.attributes_');
-        expression = expression.replace(/attributes\[\'(.*)\'\]/g, 'vars[\'attributes_$1\']');
+        expression = expression.replace(/attributes\[\'(.*)\'\]/g, 'vars.\'attributes_$1\'');
         expression = expression.replace(/attributes\[(.*)\]/g, 'vars[(\'attributes_\' ++ $1)]');
+
+        const p = variables
+            .filter(variable => variable.type === 'p')
+            .map(variable => ({
+                mimeType: variable.mimeType,
+                name: `p_${variable.name}`,
+                value: variable.value
+            }));
+        expression = expression.replace(/p\(\'(.*)\'\)/g, 'vars.\'p_$1\'');
+        expression = expression.replace(/p\((.*)\)/g, 'vars[(\'p_\' ++ $1)]');
 
         const evalOptions = {
             payload: {
@@ -34,7 +44,7 @@ class DataWeave2 {
                 value: payload.value
             },
             dw: expression,
-            vars: vars.concat(attributes)
+            vars: vars.concat(attributes).concat(p)
         };
 
         const result = await request({
@@ -71,6 +81,12 @@ class DataWeave2 {
                 supportNestedNames: true,
                 required: false,
                 isFunction: false
+            },
+            {
+                name: 'p',
+                supportNestedNames: true,
+                required: false,
+                isFunction: true
             }
         ];
     }
@@ -93,7 +109,7 @@ class DataWeave2 {
             "name": "Temp lab",
             "configs": {
                 "evaluator": "dw-2",
-                "expression": "%dw 2.0\nimport * from dw::core::Strings\noutput application/xml\n--- \npayload",
+                "expression": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n--- \npayload",
                 "variables": [
                     {
                         "type": "payload",
