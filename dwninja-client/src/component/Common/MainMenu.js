@@ -16,7 +16,6 @@ import {post} from "../../utils/Api";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import GitHubButton from 'react-github-btn';
 import Grid from "@material-ui/core/Grid";
-import AppBar from "@material-ui/core/AppBar";
 
 const themes = [
     "clouds",
