@@ -44,6 +44,7 @@ class VariableBar extends Component {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.
             const files = event.target.files; // FileList object
+            // eslint-disable-next-line
             for (let i = 0, file; file = files[i]; i++) {
                 const reader = new FileReader();
                 reader.onload = (content) => {
