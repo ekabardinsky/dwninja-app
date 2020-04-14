@@ -10,10 +10,13 @@ import CollectionsEditor from "./CollectionsEditor";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
-import {changeTheme, saveCollection} from "../../redux/actions";
+import {changeTheme,
+    saveCollection,
+    closeRunningSplash,
+    openRunningSplash,
+} from "../../redux/actions";
 import Drawer from '@material-ui/core/Drawer';
 import {post} from "../../utils/Api";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import GitHubButton from 'react-github-btn';
 import Grid from "@material-ui/core/Grid";
 
@@ -66,7 +69,6 @@ class MainMenu extends Component {
             themesAnchorEl: null,
             openCollectionEditor: false,
             openThemes: false,
-            savingState: false,
             openSayThanks: false
         };
     }
@@ -98,14 +100,13 @@ class MainMenu extends Component {
     }
 
     saveChanges() {
-        this.setState({savingState: true, open: false});
+        this.props.openRunningSplash();
+        this.setState({open: false});
         const state = {
             ...this.props.project,
             evaluators: null
         };
-        post('/api/state', state, (response) => {
-            this.setState({savingState: false})
-        })
+        post('/api/state', state, this.props.closeRunningSplash)
     }
 
     closeOrOpenSayThanks(event) {
@@ -118,7 +119,6 @@ class MainMenu extends Component {
         let authorized = !!access_token;
 
         return <React.Fragment>
-            {this.state.savingState && <LinearProgress color={"secondary"}/>}
             <IconButton onClick={this.closeOrOpen.bind(this)}><MenuIcon/></IconButton>
             <Menu
                 keepMounted
@@ -208,7 +208,12 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {saveCollection, changeTheme};
+const mapDispatchToProps = {
+    saveCollection,
+    changeTheme,
+    closeRunningSplash,
+    openRunningSplash,
+};
 
 export default connect(
     mapStateToProps,
