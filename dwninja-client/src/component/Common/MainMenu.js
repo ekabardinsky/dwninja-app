@@ -91,7 +91,7 @@ class MainMenu extends Component {
     }
 
     closeOrOpenThemes(event) {
-        this.setState({openThemes: !this.state.openThemes});
+        this.setState({open: false, openThemes: !this.state.openThemes});
     }
 
     chooseTheme(event) {

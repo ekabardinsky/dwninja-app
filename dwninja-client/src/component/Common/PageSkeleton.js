@@ -76,7 +76,12 @@ class PageSkeleton extends Component {
                         </Grid>}
                         <Grid item xs={4}></Grid>
                         <Grid item xs={1}>
-                            <MainMenu/>
+                            <Grid container justify={"flex-end"}>
+                                <Grid item xs={6}>
+                                    {/*trick to align button to end*/}
+                                    <MainMenu/>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </AppBar>
