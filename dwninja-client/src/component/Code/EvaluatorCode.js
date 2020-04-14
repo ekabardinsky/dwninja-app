@@ -3,7 +3,8 @@ import {
     changeExpression,
     evaluationEnd,
     evaluationStarted,
-    updateLastOutput
+    updateLastOutput,
+    openDwGenerator
 } from "../../redux/actions";
 import {connect} from "react-redux";
 import AceEditor from "react-ace";
@@ -13,6 +14,8 @@ import "ace-builds/src-min-noconflict/ext-language_tools";
 import "ace-builds/src-min-noconflict/ext-keybinding_menu";
 import {addCompleter} from 'ace-builds/src-noconflict/ext-language_tools';
 import {calculateHeight, getVariableFullName} from "../../utils/Utils";
+import DoubleArrow from '@material-ui/icons/DoubleArrow';
+import IconButton from "@material-ui/core/IconButton";
 
 const languages = [
     "javascript",
@@ -61,26 +64,30 @@ class InputCode extends Component {
             }
         });
 
-        return <AceEditor
-            mode={this.props.project.selectedProject.configs.evaluator}
-            theme={this.props.project.selectedTheme}
-            name="EVALUATOR_CODE"
-            width={"100%"}
-            wrapEnabled={true}
-            debounceChangePeriod={1000}
-            height={`calc(100vh - ${finalOffset}px)`}
-            enableBasicAutocompletion={true}
-            enableLiveAutocompletion={true}
-            enableSnippets={true}
-            setOptions={{
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true,
-                enableSnippets: true
-            }}
-            onChange={this.props.changeExpression}
-            value={this.props.project.selectedProject.configs.expression}
-            editorProps={{$blockScrolling: Infinity}}
-        />
+        return <React.Fragment>
+            <AceEditor
+                mode={this.props.project.selectedProject.configs.evaluator}
+                theme={this.props.project.selectedTheme}
+                name="EVALUATOR_CODE"
+                width={"100%"}
+                wrapEnabled={true}
+                debounceChangePeriod={1000}
+                height={`calc(100vh - ${finalOffset}px)`}
+                enableBasicAutocompletion={true}
+                enableLiveAutocompletion={true}
+                enableSnippets={true}
+                setOptions={{
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: true,
+                    enableSnippets: true
+                }}
+                onChange={this.props.changeExpression}
+                value={this.props.project.selectedProject.configs.expression}
+                editorProps={{$blockScrolling: Infinity}}
+            />
+            <div style={{position: 'absolute', marginLeft: '-10px', marginTop: '-50vh', zIndex: '1000'}}>
+                <IconButton onClick={this.props.openDwGenerator}><DoubleArrow fontSize="large"/></IconButton></div>
+        </React.Fragment>
     }
 }
 
@@ -94,7 +101,8 @@ const mapDispatchToProps = {
     changeExpression,
     evaluationEnd,
     evaluationStarted,
-    updateLastOutput
+    updateLastOutput,
+    openDwGenerator
 };
 
 export default connect(

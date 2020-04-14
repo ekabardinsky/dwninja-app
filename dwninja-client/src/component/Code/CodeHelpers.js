@@ -5,7 +5,9 @@ import {
     closeRunningSplash,
     openAlert,
     openRunningSplash,
-    changeExpression
+    changeExpression,
+    openDwGenerator,
+    closeDwGenerator
 } from "../../redux/actions";
 import {connect} from "react-redux";
 import Settings from '@material-ui/icons/Settings';
@@ -35,7 +37,6 @@ class CodeHelpers extends Component {
             anchorEl: null,
             alertOpen: false,
             alertMessage: '',
-            openDwGenerator: false,
             dwGeneratorNamingStyle: 'No changes',
             dwGeneratorOutputMimeType: selectedEvaluator.variableMimeTypes[0],
             dwGeneratorUseOutput: false
@@ -118,10 +119,6 @@ class CodeHelpers extends Component {
         this.setState({open: !this.state.open, anchorEl: event.currentTarget});
     }
 
-    closeOrOpenDwGenerator() {
-        this.setState({openDwGenerator: !this.state.openDwGenerator});
-    }
-
     changeDwGeneratorNamingStyle(event) {
         this.setState({dwGeneratorNamingStyle: event.target.value});
     }
@@ -136,7 +133,8 @@ class CodeHelpers extends Component {
 
     generateDw() {
         const {selectedEvaluator} = this.props.project;
-        this.setState({openDwGenerator: false, open: false})
+        this.setState({open: false})
+        this.props.closeDwGenerator();
         this.props.openRunningSplash();
 
         post('/public/api/generate/dw', {
@@ -178,12 +176,12 @@ class CodeHelpers extends Component {
                 <MenuItem onClick={this.escape.bind(this)}>
                     Escape
                 </MenuItem>
-                <MenuItem onClick={this.closeOrOpenDwGenerator.bind(this)}>
+                <MenuItem onClick={this.props.openDwGenerator}>
                     Generate DW script
                 </MenuItem>
             </Menu>
-            <Drawer anchor={"bottom"} open={this.state.openDwGenerator}
-                    onClose={this.closeOrOpenDwGenerator.bind(this)}>
+            <Drawer anchor={"bottom"} open={this.props.project.openDwGenerator}
+                    onClose={this.props.closeDwGenerator}>
                 <Grid container justify={"flex-start"} alignItems={"flex-start"}>
                     <Grid item xs={1}/>
                     <Grid item xs={11}>
@@ -264,7 +262,9 @@ const mapDispatchToProps = {
     closeAlert,
     openRunningSplash,
     closeRunningSplash,
-    changeExpression
+    changeExpression,
+    openDwGenerator,
+    closeDwGenerator
 };
 
 export default connect(

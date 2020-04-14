@@ -1,7 +1,7 @@
 import {
     CHANGE_EXPRESSION,
     CHANGE_THEME,
-    CHANGE_VALUE_CURRENT_VARIABLE, CLOSE_ALERT, CLOSE_RUNNING_SPLASH,
+    CHANGE_VALUE_CURRENT_VARIABLE, CLOSE_ALERT, CLOSE_DW_GENERATOR, CLOSE_RUNNING_SPLASH,
     CREATE_COLLECTION,
     CREATE_LAB,
     CREATE_VARIABLE,
@@ -10,7 +10,7 @@ import {
     EVALUATION_END,
     EVALUATION_STARTED,
     GET_EVALUATORS,
-    LOAD_STATE, OPEN_ALERT, OPEN_RUNNING_SPLASH, PARSE_PROPERTY_FILE_RESULT,
+    LOAD_STATE, OPEN_ALERT, OPEN_DW_GENERATOR, OPEN_RUNNING_SPLASH, PARSE_PROPERTY_FILE_RESULT,
     REMOVE_VARIABLE,
     RENAME_COLLECTION,
     RENAME_LAB,
@@ -135,7 +135,8 @@ const initialState = {
     selectedTheme: "eclipse",
     stateLoaded: false,
     alert: {open: false},
-    running: false
+    running: false,
+    openDwGenerator: false,
 };
 
 function updateVariable(state, action) {
@@ -245,12 +246,14 @@ export default function (state = initialState, action) {
 
             return {
                 ...updatedProject,
+                running: true,
                 isEvaluate: true
             }
         }
         case EVALUATION_END: {
             return {
                 ...state,
+                running: false,
                 isEvaluate: false
             }
         }
@@ -487,6 +490,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 selectedProject: {...state.selectedProject, configs: {...state.selectedProject.configs, variables: allVariables}}
+            }
+        }
+
+        case  OPEN_DW_GENERATOR: {
+            return {
+                ...state,
+                openDwGenerator: true
+            }
+        }
+
+        case  CLOSE_DW_GENERATOR: {
+            return {
+                ...state,
+                openDwGenerator: false
             }
         }
 

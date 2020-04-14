@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import AppBar from '@material-ui/core/AppBar';
 import Code from '@material-ui/icons/Code';
 import {
@@ -46,7 +45,6 @@ class PageSkeleton extends Component {
 
         return (
             <div>
-                {isEvaluate && <LinearProgress color={"secondary"}/>}
                 <AppBar position="static">
                     <Grid container spacing={2} justify={"flex-end"} alignItems={"center"}>
                         {!isLoginPage && <Grid item xs={1}>
