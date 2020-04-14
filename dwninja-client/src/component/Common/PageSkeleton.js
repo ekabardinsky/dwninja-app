@@ -18,12 +18,6 @@ import MainMenu from "./MainMenu";
 import CodeHelpers from "../Code/CodeHelpers"
 
 class PageSkeleton extends Component {
-
-    logout() {
-        window.localStorage.removeItem('access_token');
-        window.location.href = '/login';
-    }
-
     handleEvaluatorChange(first) {
         this.props.selectEvaluator(this.props.project.evaluators.find(evaluator => evaluator.name === first.target.value));
     }
@@ -41,7 +35,7 @@ class PageSkeleton extends Component {
 
     render() {
         let isLoginPage = window.location.href.includes("/login");
-        const {evaluators, selectedEvaluator, selectedVariable, isEvaluate} = this.props.project;
+        const {evaluators, selectedEvaluator, selectedVariable} = this.props.project;
 
         return (
             <div>
