@@ -8,7 +8,7 @@ module.exports = {
         tmpDir: process.env.TMP_DIR | './tmp'
     },
     dw1: {
-        uri: 'http://dwninja.ekabardinsky.net/api/executors/dw'
+        uri: 'http://35.157.207.20/api/executors/dw'
     },
     dw2: {
         uri: 'http://84.201.168.27:8081/api/transform'
