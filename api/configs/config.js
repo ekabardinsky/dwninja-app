@@ -5,7 +5,7 @@ module.exports = {
     bigQuery: {
         project: 'dwninja',
         dataset: 'user_data',
-        tmpDir: process.env.TMP_DIR | './tmp'
+        tmpDir: process.env.TMP_DIR
     },
     dw1: {
         uri: 'http://35.157.207.20/api/executors/dw'

@@ -366,7 +366,6 @@ export default function (state = initialState, action) {
         }
 
         case CREATE_COLLECTION: {
-            console.log(action.payload)
             const newCollection = {
                 name: action.payload,
                 labs: []

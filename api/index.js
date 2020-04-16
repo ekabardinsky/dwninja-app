@@ -10,7 +10,7 @@ const passport = require('passport');
 require("./passport/passport");
 require("express-async-await")(apiRoute); // async support
 require("express-async-await")(public); // async support
-app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.raw({ type: 'text/plain' })); // parse text/plain
 app.use(bodyParser.raw({ type: 'application/xml' })); // parse application/xml
 
@@ -36,6 +36,7 @@ app.use((err, req, res, next) => {
         });
     }
 });
+
 
 app.listen(appPort, function () {
     logger.info(`Api started at ${appPort}`);
