@@ -29,7 +29,19 @@ languages.forEach(lang => {
     require(`ace-builds/src-noconflict/snippets/${lang}`);
 });
 
-class InputCode extends Component {
+class EvaluatorCode extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            expression: '',
+            expressionTs: 0
+        }
+    }
+
+    updateExpression(value) {
+        this.setState({expression: value, expressionTs: new Date().getTime()});
+        this.props.changeExpression(value);
+    }
 
     render() {
         const project = this.props.project;
@@ -64,6 +76,8 @@ class InputCode extends Component {
             }
         });
 
+        const expression = this.state.expressionTs > this.props.project.expressionTs ? this.state.expression : this.props.project.selectedProject.configs.expression;
+
         return <React.Fragment>
             <AceEditor
                 mode={this.props.project.selectedProject.configs.evaluator}
@@ -71,7 +85,7 @@ class InputCode extends Component {
                 name="EVALUATOR_CODE"
                 width={"100%"}
                 wrapEnabled={true}
-                debounceChangePeriod={1000}
+                debounceChangePeriod={500}
                 height={`calc(100vh - ${finalOffset}px)`}
                 enableBasicAutocompletion={true}
                 enableLiveAutocompletion={true}
@@ -81,8 +95,9 @@ class InputCode extends Component {
                     enableLiveAutocompletion: true,
                     enableSnippets: true
                 }}
-                onChange={this.props.changeExpression}
-                value={this.props.project.selectedProject.configs.expression}
+                onChange={this.updateExpression.bind(this)}
+                // value={this.props.project.selectedProject.configs.expression}
+                value={expression}
                 editorProps={{$blockScrolling: Infinity}}
             />
             <div style={{position: 'absolute', marginLeft: '-10px', marginTop: '-50vh', zIndex: '1000'}}>
@@ -108,4 +123,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InputCode);
+)(EvaluatorCode);

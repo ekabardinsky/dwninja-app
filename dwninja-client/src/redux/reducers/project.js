@@ -137,6 +137,7 @@ const initialState = {
     alert: {open: false},
     running: false,
     openDwGenerator: false,
+    expressionTs: 0
 };
 
 function updateVariable(state, action) {
@@ -156,7 +157,8 @@ function updateVariable(state, action) {
     return {
         ...state,
         selectedProject,
-        selectedVariable: action.payload.newVariable
+        selectedVariable: action.payload.newVariable,
+        expressionTs: new Date().getTime()
     }
 }
 
@@ -176,7 +178,8 @@ function updateSelectedProject(state, action) {
 
     return {
         ...state,
-        selectedProject
+        selectedProject,
+        expressionTs: new Date().getTime()
     }
 }
 
@@ -217,7 +220,8 @@ export default function (state = initialState, action) {
                 selectedProject: {
                     ...state.selectedProject,
                     configs: {...state.selectedProject.configs, expression: action.payload}
-                }
+                },
+                expressionTs: new Date().getTime()
             }
         }
         case UPDATE_SELECTED_PROJECT: {
@@ -276,7 +280,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 selectedProject,
-                selectedVariable: selectedProject.configs.variables[0]
+                selectedVariable: selectedProject.configs.variables[0],
+                expressionTs: new Date().getTime()
             }
         }
         case CREATE_VARIABLE: {
@@ -302,7 +307,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 selectedProject,
-                selectedVariable: state.selectedProject.configs.variables[0]
+                selectedVariable: state.selectedProject.configs.variables[0],
+                expressionTs: new Date().getTime()
             }
         }
         case SELECT_VARIABLE: {
