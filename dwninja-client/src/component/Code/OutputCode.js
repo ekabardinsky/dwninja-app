@@ -35,7 +35,7 @@ class OutputCode extends Component {
                 editorProps={{$blockScrolling: Infinity}}
             />
             <div style={{position: 'absolute', marginLeft: '-10px', marginTop: '-50vh', zIndex: '1000'}}>
-                <IconButton onClick={this.handleHiyah.bind(this)}><DoubleArrow fontSize="large"/></IconButton></div>
+                <IconButton onClick={this.handleHiyah.bind(this)}><DoubleArrow fontSize="medium"/></IconButton></div>
         </React.Fragment>
     }
 }

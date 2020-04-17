@@ -54,15 +54,17 @@ class VariableEdit extends Component {
             <Grid container direction="row" justify={"flex-end"} alignContent={"center"} >
                 <Grid item xs={4}>
                     <Select
+                        fullWidth
                         variant="standard"
                         value={selectedVariableType.name}
                         onChange={this.handleTypeChange.bind(this)}>
                         {variableTypes.map(type => <MenuItem key={type.name} value={type.name}>{type.name}</MenuItem>)}
                     </Select>
                 </Grid>
-                <Grid item xs={7}>
-                    <TextField onChange={this.handleNameChange.bind(this)} value={this.state.name}></TextField>
+                <Grid item xs={6}>
+                    <TextField fullWidth onChange={this.handleNameChange.bind(this)} value={this.state.name}></TextField>
                 </Grid>
+                <Grid item xs={1}/>
                 <Grid item xs={2}>
                     <Button onClick={this.handleSave.bind(this)}>Save</Button>
                 </Grid>
