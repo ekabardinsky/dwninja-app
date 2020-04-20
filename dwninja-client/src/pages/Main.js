@@ -47,9 +47,9 @@ class MainPage extends Component {
         const page = (
             <PageSkeleton>
                 <Grid container direction="row" alignItems={"center"} alignContent={"center"} justify={"center"}>
-                    <Grid item xs={4}><InputCode/></Grid>
-                    <Grid item xs={4}><EvaluatorCode/></Grid>
-                    <Grid item xs={4}><OutputCode/></Grid>
+                    <Grid item xs={3}><InputCode/></Grid>
+                    <Grid item xs={6}><EvaluatorCode/></Grid>
+                    <Grid item xs={3}><OutputCode/></Grid>
                     <Grid item xs={12}><VariableBar/></Grid>
                 </Grid>
             </PageSkeleton>

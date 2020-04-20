@@ -99,7 +99,7 @@ class EvaluatorCode extends Component {
                 value={expression}
                 editorProps={{$blockScrolling: Infinity}}
             />
-            <div style={{position: 'absolute', marginLeft: '-20px', marginTop: '-50vh', zIndex: '1000'}}>
+            <div style={{position: 'absolute', marginLeft: '-10px', marginTop: '-50vh', zIndex: '1000'}}>
                 <IconButton onClick={this.props.openDwGenerator}><DoubleArrow fontSize="medium"/></IconButton></div>
         </React.Fragment>
     }
