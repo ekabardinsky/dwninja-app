@@ -444,8 +444,9 @@ export default function (state = initialState, action) {
             if (action.payload.data) {
                 return {
                     ...action.payload.data,
+                    stateLoaded: true,
                     evaluators: state.evaluators,
-                    stateLoaded: true
+                    expressionTs: new Date().getTime()
                 }
             } else {
                 return {
