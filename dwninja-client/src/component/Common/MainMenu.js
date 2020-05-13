@@ -150,14 +150,18 @@ class MainMenu extends Component {
                     <Grid container spacing={2} justify={"flex-start"} alignItems={"center"}>
                         <Grid item xs={12}>
                             <Typography>DW Ninja is completely free to use, the code is open source, and I provide
-                                hosting for
-                                this application.
-                                Donations from users help pay bills and allow me dedicate time to the continued
-                                development and
-                                support of this project.
-                                However, money is not the only way to support the project. If you‘ve found DW Ninja
-                                useful, feel
-                                free to contribute it.</Typography>
+                                hosting for this application.
+                                Donations from users help pay hosting bills for me.
+                                However, money is not the only way to support the project.
+                                If you‘ve found DW Ninja useful,
+                                feel free to contribute it or say thanks directly to me: ekabardinsky@gmail.com</Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <iframe
+                                title={"Donate"}
+                                src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=Donations%20for%20DW%20Ninja%20tool%20support&targets-hint=&default-sum=100&button-text=14&payment-type-choice=on&hint=&successURL=&quickpay=shop&account=4100115176422760"
+                                width="423" height="222" frameBorder="0" allowtransparency="true"
+                                scrolling="no"></iframe>
                         </Grid>
 
                         <Grid item xs={3}>
@@ -185,8 +189,6 @@ class MainMenu extends Component {
                                 data-size="large"
                                 data-show-count="true"
                                 href="https://github.com/ekabardinsky">Follow</GitHubButton>
-                        </Grid>
-                        <Grid item xs={3}>
                         </Grid>
                     </Grid>
                 </DialogContent>
