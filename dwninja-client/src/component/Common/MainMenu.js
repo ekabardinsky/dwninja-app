@@ -135,7 +135,7 @@ class MainMenu extends Component {
                     Themes
                 </MenuItem>
                 <MenuItem onClick={this.closeOrOpenSayThanks.bind(this)}>
-                    Say thanks
+                    About tool
                 </MenuItem>
                 {authorized && <MenuItem onClick={this.logout.bind(this)}>Log out</MenuItem>}
                 {!authorized && !isLoginPage && <MenuItem onClick={this.logout.bind(this)}>Log in</MenuItem>}
@@ -145,23 +145,13 @@ class MainMenu extends Component {
                 <CollectionsEditor/>
             </Dialog>
             <Dialog onClose={this.closeOrOpenSayThanks.bind(this)} open={this.state.openSayThanks}>
-                <DialogTitle>Say thanks</DialogTitle>
+                <DialogTitle>About tool</DialogTitle>
                 <DialogContent>
                     <Grid container spacing={2} justify={"flex-start"} alignItems={"center"}>
                         <Grid item xs={12}>
-                            <Typography>DW Ninja is completely free to use, the code is open source, and I provide
-                                hosting for this application.
-                                Donations from users help pay hosting bills for me.
-                                However, money is not the only way to support the project.
-                                If you‘ve found DW Ninja useful,
-                                feel free to contribute it or say thanks directly to me: ekabardinsky@gmail.com</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <iframe
-                                title={"Donate"}
-                                src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=Donations%20for%20DW%20Ninja%20tool%20support&targets-hint=&default-sum=100&button-text=14&payment-type-choice=on&hint=&successURL=&quickpay=shop&account=4100115176422760"
-                                width="423" height="222" frameBorder="0" allowtransparency="true"
-                                scrolling="no"></iframe>
+                            <Typography>DW Ninja helps developers to build their code faster and effective.
+                                Tool is completely free to use, the code is open source (GPL).
+                                Feel free to contribute it or message me directly: ekabardinsky@gmail.com</Typography>
                         </Grid>
 
                         <Grid item xs={3}>
