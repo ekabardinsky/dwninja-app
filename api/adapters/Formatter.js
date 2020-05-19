@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const config = require('../configs/config');
 const parser = require('fast-xml-parser');
-const beautifier = require('xml-beautifier')
+const xmlFormat = require('xml-formatter');
 const jsonUnescape = require('unscape-json-recursively');
 const jsonEscape = require('jsesc');
 const xmlEntities = require('entities');
@@ -33,10 +33,14 @@ class Formatter {
 
     async xml(body) {
         const valid = parser.validate(body)
-        const indentation = '    ';
+        const indentation = '  ';
         return {
             success: valid === true,
-            body: valid === true ? beautifier(body, indentation) : null,
+            body: valid === true ? xmlFormat(body, {
+                indentation,
+                collapseContent: true,
+                lineSeparator: '\n'
+            }) : null,
             errors: valid !== true ? [
                 {
                     code: valid.err.code,
