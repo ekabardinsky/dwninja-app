@@ -9,24 +9,26 @@ const xmlEntities = require('entities');
 class Formatter {
     async json(body) {
         let {formatters: {json: {uri}}} = config;
+        const formData = {
+            data: body,
+            jsontemplate: 1,
+            jsonspec: 4,
+            jsonfix: 'on',
+            autoprocess: '',
+            version: 1
+        }
 
         const result = await request({
-            uri,
+            url: uri,
             method: 'POST',
-            formData: {
-                jsondata: body,
-                jsontemplate: 1,
-                jsonspec: 4,
-                jsonfix: 'on',
-                autoprocess: ''
-            }
+            formData
         });
 
         const response = JSON.parse(result);
 
         return {
             success: !response.result.errors.length,
-            body: response.result.jsoncopy,
+            body: response.result.data,
             errors: response.result.errors
         }
     }
