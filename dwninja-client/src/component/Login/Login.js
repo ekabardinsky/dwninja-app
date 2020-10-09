@@ -35,17 +35,19 @@ class Login extends Component {
 
     handlingLogin() {
         this.setState({waiting: true});
-        post('/public/api/login', {
-            email: this.state.username,
-            password: this.state.password
-        }, (result) => {
+        const handler = (result) => {
             if (result.token) {
                 window.localStorage.setItem('access_token', result.token);
                 window.location.href = '/';
             } else {
-                this.setState({open: true, message: 'Can not log in. Maybe yu pass wrong username/password?', waiting: false});
+                this.setState({open: true, message: 'Can not log in. Maybe you pass the wrong username/password?', waiting: false});
             }
-        })
+        }
+
+        post('/public/api/login', {
+            email: this.state.username,
+            password: this.state.password
+        }, handler, handler)
     }
 
     handleCloseSnackbar() {
