@@ -7,6 +7,18 @@ const dataset = configs.bigQuery.dataset;
 const fs = require("fs").promises;
 const path = require('path');
 
+/**
+ * Table users:
+ * - id
+ * - email
+ * - password
+ *
+ * Table states:
+ * - id
+ * - userId
+ * - state
+ */
+
 class DatabaseBigQueryStrategy {
     getTableName(name) {
         return `\`${project}.${dataset}.${name}\``;
