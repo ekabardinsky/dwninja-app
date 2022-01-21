@@ -20,7 +20,7 @@
     "express-async-await": "^1.1.0",
     "instagram-private-api": "^1.26.0",
     "jsonwebtoken": "^8.5.1",
-    "log4js": "^5.1.0",
+    "log4js": "^6.4.0",
     "moment": "^2.24.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
